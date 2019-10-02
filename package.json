@@ -1,0 +1,22 @@
+{
+  "name": "unit-testing",
+  "version": "1.0.0",
+  "description": "some testing project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malgosia-kowal/Unit-Testing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malgosia-kowal/Unit-Testing/issues"
+  },
+  "homepage": "https://github.com/malgosia-kowal/Unit-Testing#readme",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
