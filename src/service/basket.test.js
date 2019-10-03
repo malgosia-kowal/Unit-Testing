@@ -17,4 +17,24 @@ test('add product to basket', () => {
     expect(basket.get().products.length).toEqual(1);
     
     expect(basket.get().total).toEqual(1255);
+    
+});test('that multiple products can be added to basket', () => {
+  // todo: basket will already have a product inside from the previous test, we want to test that another product can be added
+
+  // todo: assert that products amount increased
+  // todo: assert that basket total price is correct
 });
+
+test('that product can be removed from the basket', () => {
+  // todo: at this point basket will have 2 products, lets see if we can remove nikey product by calling basket.removeProduct(mockProduct)
+
+  // todo: assert that products amount decreased
+  // todo: assert that basket total price is correct after removal
+});
+
+//todo: write test to check basket.applyDiscount(20) works ?
+//todo: write test to check basket.clear() works ?
+
+
+  
+
