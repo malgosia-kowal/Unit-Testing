@@ -5,12 +5,14 @@ const product2 = { name:'cream', price: 342, quantity: 1 };
 
 
 describe('basket', () => {
+  
+  beforeEach(() => {
+    basket.clear() 
+  });
+
   it('that init basket can be returned', () => {
     expect(basket.get().products.length).toEqual(0);
     expect(basket.get().total).toEqual(0);
-    beforeEach(() => {
-        basket.clear() 
-    });
   });
 
   it('add product to basket', () => {
