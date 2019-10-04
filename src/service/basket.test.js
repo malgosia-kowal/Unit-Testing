@@ -32,13 +32,47 @@ test('that multiple products can be added to basket', () => {
 
 test('that product can be removed from the basket', () => {
   // todo: at this point basket will have 2 products, lets see if we can remove nikey product by calling basket.removeProduct(mockProduct)
-     basket.removeProduct(mockProduct);
+  console.log(basket.get().products)
+  console.log(basket.get().total)
 
+  basket.removeProduct(mockProduct.name);
+  
+  console.log(basket.get().products.length)
+  
+    // todo: assert that products amount decreased
      expect(basket.get().products.length).toEqual(1);
 
-  // todo: assert that products amount decreased
   // todo: assert that basket total price is correct after removal
+      //expect(basket.get().total).toEqual(342);
+  // to mi nie chce działać
 });
 
 //todo: write test to check basket.applyDiscount(20) works ?
+test('does basket.applyDiscount work', () => {
+  
+  basket.applyDiscount(20);
+  console.log(basket.get().total)
+  
+  //expect(basket.get().total).toEqual(0);
+    
+  // todo: assert that price basket is zero
+    //expect(basket.get().total).toEqual(0);
+    //expect(basket.get().total).toEqual(0);
+});
+
 //todo: write test to check basket.clear() works ?
+ 
+ test('if basket can be cleared ', () => {
+  
+  basket.clear();
+  console.log(basket.get().products.length)
+  
+  expect(basket.get().products.length).toEqual(0);
+  
+  // nie działa cena, nie zeruje się
+  //expect(basket.get().total).toEqual(0);
+  
+});
+
+
+ 

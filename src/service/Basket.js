@@ -16,6 +16,7 @@ class Basket {
 
   removeProduct(productName) {
     this.products = this.products.filter(p => p.name !== productName);
+    
   }
 
   applyDiscount(discountAmount) {
