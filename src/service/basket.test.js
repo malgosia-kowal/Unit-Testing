@@ -4,43 +4,56 @@ const mockProduct = { name:'nikey', price: 1255, quantity: 1 };
 const product2 = { name:'cream', price: 342, quantity: 1 };
 
 
-test('that init basket can be returned', () => {
-  expect(basket.get().products.length).toEqual(0);
-  expect(basket.get().total).toEqual(0);
+beforeEach(() => {
+  
+  return basket.clear() 
+  
 });
 
-test('add product to basket', () => {
-  expect(basket.get().products.length).toEqual(0);
-  expect(basket.get().total).toEqual(0);
-  basket.addProduct(mockProduct);
-  expect(basket.get().products.length).toEqual(1);
-  expect(basket.get().total).toEqual(1255);
-});
+describe('basket', () => {
+  it('that init basket can be returned', () => {
+    expect(basket.get().products.length).toEqual(0);
+    expect(basket.get().total).toEqual(0);
+  });
 
-test('that multiple products can be added to basket', () => {
-  basket.addProduct(product2);
-  expect(basket.get().products.length).toEqual(2);
-  expect(basket.get().total).toEqual(1597);
-});
+  it('add product to basket', () => {
+    expect(basket.get().products.length).toEqual(0);
+    expect(basket.get().total).toEqual(0);
+    basket.addProduct(mockProduct);
+    expect(basket.get().products.length).toEqual(1);
+    expect(basket.get().total).toEqual(1255);
+  });
 
-test('that product can be removed from the basket', () => {
-  basket.removeProduct(mockProduct.name);
-  expect(basket.get().products.length).toEqual(1);
-  expect(basket.get().total).toEqual(342);
-});
+  it('that multiple products can be added to basket', () => {
+    basket.addProduct(mockProduct);
+    basket.addProduct(product2);
+    expect(basket.get().products.length).toEqual(2);
+    expect(basket.get().total).toEqual(1597);
+  });
 
-test('does basket.applyDiscount for amount work', () => {
-  basket.applyDiscount(20, false);
-  expect(basket.get().total).toEqual(322);
-});
+  it('that product can be removed from the basket', () => {
+    basket.addProduct(mockProduct);
+    basket.addProduct(product2);
+    basket.removeProduct(mockProduct.name);
+    expect(basket.get().products.length).toEqual(1);
+    expect(basket.get().total).toEqual(342);
+  });
 
-test('does basket.applyDiscount for percentage work', () => {
-  basket.applyDiscount(20);
-  expect(basket.get().total).toEqual(257.6);
-});
+  it('does basket.applyDiscount for amount work', () => {
+    basket.addProduct(product2);
+    basket.applyDiscount(20, false);
+    expect(basket.get().total).toEqual(322);
+  });
 
-test('if basket can be cleared ', () => {
-  basket.clear();
-  expect(basket.get().products.length).toEqual(0);
-  expect(basket.get().total).toEqual(0);
+  it('does basket.applyDiscount for percentage work', () => {
+    basket.addProduct(product2);
+    basket.applyDiscount(20);
+    expect(basket.get().total).toEqual(273.6);
+  });
+
+  it('if basket can be cleared ', () => {
+    basket.clear();
+    expect(basket.get().products.length).toEqual(0);
+    expect(basket.get().total).toEqual(0);
+  });
 });
