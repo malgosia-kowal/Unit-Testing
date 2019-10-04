@@ -4,16 +4,13 @@ const mockProduct = { name:'nikey', price: 1255, quantity: 1 };
 const product2 = { name:'cream', price: 342, quantity: 1 };
 
 
-beforeEach(() => {
-  
-  return basket.clear() 
-  
-});
-
 describe('basket', () => {
   it('that init basket can be returned', () => {
     expect(basket.get().products.length).toEqual(0);
     expect(basket.get().total).toEqual(0);
+    beforeEach(() => {
+        basket.clear() 
+    });
   });
 
   it('add product to basket', () => {
