@@ -1,8 +1,7 @@
-const basket = require('./Basket');
-const Product = require('../entity/Product');
-const createProduct = require('../factory/Product');
+import 'jest';
+import { BasketService } from './basket.service';
 
-const invalidProduct = ['cream', 342, '6', 7];
+const basket = new BasketService();
 
 describe('basket', () => {
   beforeEach(() => {
