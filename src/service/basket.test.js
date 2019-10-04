@@ -19,36 +19,28 @@ test('add product to basket', () => {
 
 test('that multiple products can be added to basket', () => {
   basket.addProduct(product2);
-  // assert that products amount increased
   expect(basket.get().products.length).toEqual(2);
-  // assert that basket total price is correct
   expect(basket.get().total).toEqual(1597);
 });
 
 test('that product can be removed from the basket', () => {
   basket.removeProduct(mockProduct.name);
-  // assert that products amount decreased
   expect(basket.get().products.length).toEqual(1);
-  //assert that basket total price is correct after removal
   expect(basket.get().total).toEqual(342);
 });
 
 test('does basket.applyDiscount for amount work', () => {
   basket.applyDiscount(20, false);
-  //assert that price is correct after discount for amount
   expect(basket.get().total).toEqual(322);
 });
 
 test('does basket.applyDiscount for percentage work', () => {
-  basket.applyDiscount(20, );
-  //assert that price is correct after discount for percentage
+  basket.applyDiscount(20);
   expect(basket.get().total).toEqual(257.6);
 });
 
 test('if basket can be cleared ', () => {
   basket.clear();
-  //assert that basket amount is zero
   expect(basket.get().products.length).toEqual(0);
-  //assert that total price is zero
   expect(basket.get().total).toEqual(0);
 });
