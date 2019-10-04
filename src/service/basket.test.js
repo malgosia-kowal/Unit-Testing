@@ -3,20 +3,25 @@ const basket = require('./Basket.js');
 const mockProduct = { name:'nikey', price: 1255, quantity: 1 };
 const product2 = { name:'cream', price: 342, quantity: 1 };
 
+// todo:
+// 1. Tidy up syntax ('add product to basket' as example) and remove not needed comments(all of them ;))
+// 2. Finish 'if basket can be cleared' and 'does basket.applyDiscount work'
+// 3. 'does basket.applyDiscount work' now accepts second argument which will allow us to apply percentage discount or just plain amount.
+// 4. Once above is done you can create pull request to master.
+
 test('that init basket can be returned', () => {
   expect(basket.get().products.length).toEqual(0);
   expect(basket.get().total).toEqual(0);
 });
+
 test('add product to basket', () => {
     expect(basket.get().products.length).toEqual(0);
     expect(basket.get().total).toEqual(0);
+
     basket.addProduct(mockProduct);
 
     expect(basket.get().products.length).toEqual(1);
-    
     expect(basket.get().total).toEqual(1255);
-
-    
 });
 
 test('that multiple products can be added to basket', () => {
@@ -31,10 +36,6 @@ test('that multiple products can be added to basket', () => {
 });
 
 test('that product can be removed from the basket', () => {
-  // todo: at this point basket will have 2 products, lets see if we can remove nikey product by calling basket.removeProduct(mockProduct)
-  console.log(basket.get().products)
-  console.log(basket.get().total)
-
   basket.removeProduct(mockProduct.name);
   
   console.log(basket.get().products.length)
@@ -73,6 +74,3 @@ test('does basket.applyDiscount work', () => {
   //expect(basket.get().total).toEqual(0);
   
 });
-
-
- 
