@@ -14,13 +14,7 @@ const products:Product[] = [
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  product: Product = {
-    name:'nikey',
-    price: 123,
-    quantity: 1,
-    size: '8',
-    image: 'http://placekitten.com/200/300',
-  };
+  product: Product;
   products:Product[] = products;
   constructor() {
     console.log(this.product);
@@ -30,7 +24,6 @@ export class ProductsComponent implements OnInit {
   }
 
   onSelect(product:Product) {
-    console.log(product)
+    this.product = product;
   }
-
 }

@@ -1,4 +1,5 @@
 <h2>Products</h2>
+<app-product-detail [product]="product"></app-product-detail>
 <div class="productsContainer">
   <div class="productCard" *ngFor="let product of products" (click)="onSelect(product)">
     <img src="{{ product.image }}">
