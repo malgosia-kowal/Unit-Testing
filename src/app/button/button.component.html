@@ -1,3 +1,3 @@
-<button [ngStyle]="styles" (click)="action.emit('click')">
+<button [ngStyle]="styles" (click)="action.emit($event)">
     {{ text }}
 </button>
