@@ -1,6 +1,7 @@
 .productsContainer {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 70px;
 }
 
 .productCard {
@@ -10,5 +11,16 @@
   cursor: pointer;
   &:hover {
     box-shadow: 0 10px 15px rgb(0, 0, 0, 0.4);
+  }
+
+  &Footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    & > div {
+      padding: 5px;
+      background: darkred;
+      color: white;
+    }
   }
 }

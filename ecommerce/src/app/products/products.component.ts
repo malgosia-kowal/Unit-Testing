@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from "./product";
-
-const products:Product[] = [
-  { name:'nikey', price: 123, quantity: 1, size: '8', image: 'http://placekitten.com/200/300'},
-  { name:'nikey', price: 123, quantity: 1, size: '8.5', image: 'http://placekitten.com/200/300'},
-  { name:'rebook', price: 123, quantity: 1, size: '9', image: 'http://placekitten.com/200/300'},
-  { name:'cream', price: 123, quantity: 1, size: '10', image: 'http://placekitten.com/200/300'},
-];
+import {ProductService} from "../service/product.service";
+import {BasketService} from "../service/basket.service";
 
 @Component({
   selector: 'app-products',
@@ -15,15 +10,21 @@ const products:Product[] = [
 })
 export class ProductsComponent implements OnInit {
   product: Product;
-  products:Product[] = products;
-  constructor() {
-    console.log(this.product);
+  products: Product[];
+
+  constructor(private productService: ProductService, private basketService: BasketService) {
+    this.productService = productService;
   }
 
   ngOnInit() {
+    this.products = this.productService.getProducts();
   }
 
   onSelect(product:Product) {
     this.product = product;
+  }
+
+  addProduct(product:Product) {
+    this.basketService.addProduct(product);
   }
 }

@@ -6,5 +6,10 @@
     <h3>{{ product.name }}</h3>
     <div>{{ product.size }}</div>
     <div>{{ product.price }} zl</div>
+    <div class="productCardFooter">
+      <div (click)="addProduct(product); $event.stopPropagation()">
+        Add to basket
+      </div>
+    </div>
   </div>
 </div>
