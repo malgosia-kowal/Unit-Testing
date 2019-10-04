@@ -1,4 +1,13 @@
 <div class="basketContainer">
-  <div>Total: {{ basketService.total }} zl</div>
-  <div> Products: {{ basketService.products.length }}</div>
+  <div class="basketContainerDetail">
+    <div> Total: {{ basketService.total }} zl</div>
+    <div> Products: {{ basketService.products.length }}</div>
+  </div>
+  <div>
+    <app-button
+      text="Clean"
+      (action)="basketService.clear()"
+    >
+    </app-button>
+  </div>
 </div>

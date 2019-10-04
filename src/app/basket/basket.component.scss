@@ -1,12 +1,19 @@
 .basketContainer {
   position: fixed;
-  padding: 10px;
   height: 50px;
   bottom: 0;
   background: white;
   width: 100%;
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &Detail {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 }

@@ -1,0 +1,18 @@
+button {
+  border: none;
+  padding: 10px;
+  background: darkred;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: sans-serif;
+  outline:none;
+
+  transition: all .2s;
+
+  &:hover {
+    box-shadow: 0 5px 10px rgb(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+}
