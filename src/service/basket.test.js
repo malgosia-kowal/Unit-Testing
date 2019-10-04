@@ -3,6 +3,19 @@ const basket = require('./Basket.js');
 const mockProduct = { name:'nikey', price: 1255, quantity: 1 };
 const product2 = { name:'cream', price: 342, quantity: 1 };
 
+// todo: There was a missed specification on how basket should work
+// we will be using Product entity now to work with product and we have new property added `size`
+// you can have a look at index.js file to see how to create new product.
+// new requirements are:
+// 1. Test that if we were to add the same product into the basket we will increment quantity rather than adding new product.
+//    You can have a look and test -> basket.isTheSameProduct(product1, product2) method to see how do we identify identical products.
+// 2. Remove product should work the same if we were to remove the same product we would expect:
+//      a) if quantity is more than 1, we will decrement quantity
+//      b) if quantity is 1 we will remove that item from the basket.
+//  above does not exist yet but you can write failing tests and I will make them pass.
+// 3. Bonus: write negative test that error should be thrown if we were pass anything else than Product class to addProduct() method.
+
+// You can use now new script `npm run test:watch` so you dont need to run the same command over again.
 
 describe('basket', () => {
   
