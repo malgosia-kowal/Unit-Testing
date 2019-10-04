@@ -21,11 +21,16 @@ export class ProductsComponent implements OnInit {
     size: '8',
     image: 'http://placekitten.com/200/300',
   };
+  products:Product[] = products;
   constructor() {
     console.log(this.product);
   }
 
   ngOnInit() {
+  }
+
+  onSelect(product:Product) {
+    console.log(product)
   }
 
 }

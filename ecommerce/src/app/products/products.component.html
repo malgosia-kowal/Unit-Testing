@@ -1,2 +1,9 @@
-<h2>{{ product.name }}</h2>
-<div>{{ product.price }} {{ product.size }}</div>
+<h2>Products</h2>
+<div class="productsContainer">
+  <div class="productCard" *ngFor="let product of products" (click)="onSelect(product)">
+    <img src="{{ product.image }}">
+    <h3>{{ product.name }}</h3>
+    <div>{{ product.size }}</div>
+    <div>{{ product.price }} zl</div>
+  </div>
+</div>
