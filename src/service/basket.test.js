@@ -1,7 +1,10 @@
-const basket = require('./Basket.js');
+const basket = require('./Basket');
+const Product = require('../entity/Product');
 
-const mockProduct = { name:'nikey', price: 1255, quantity: 1 };
-const product2 = { name:'cream', price: 342, quantity: 1 };
+
+const mockProduct = new Product('nikey', 1255, 1, '8');
+const product2 = new Product ('cream', 342, 1, '6' );
+const product3= ('cream', 342, '6', 7 );
 
 // todo: There was a missed specification on how basket should work
 // we will be using Product entity now to work with product and we have new property added `size`
@@ -50,7 +53,15 @@ describe('basket', () => {
     expect(basket.get().products.length).toEqual(1);
     expect(basket.get().total).toEqual(342);
   });
-
+  
+  it('remove the same product will decrement quantity', () => {
+    basket.addProduct(mockProduct);
+    basket.addProduct(mockProduct);
+    basket.isTheSameProduct(mockProduct, mockProduct);
+    basket.removeProduct(mockProduct.name);
+    expect(mockProduct.quantity).toEqual(1);
+  });
+  
   it('does basket.applyDiscount for amount work', () => {
     basket.addProduct(product2);
     basket.applyDiscount(20, false);
@@ -67,5 +78,16 @@ describe('basket', () => {
     basket.clear();
     expect(basket.get().products.length).toEqual(0);
     expect(basket.get().total).toEqual(0);
+  });
+
+  it('add the same product into the basket and check increment quantity ', () => {
+    basket.addProduct(mockProduct);
+    basket.isTheSameProduct(mockProduct, mockProduct);
+    expect(mockProduct.quantity).toBe(2);
+  });
+
+  it('if we were pass anything else than Product class to addProduct() method.', () => {
+    basket.addProduct(product3);
+    expect(addProduct).toThrowError();
   });
 });
