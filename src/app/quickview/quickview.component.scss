@@ -5,4 +5,25 @@
   height: 100%;
   background: white;
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+.quickviewProduct {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 0;
+
+  & > div:first-of-type {
+    height: 75px;
+    & img {
+      object-fit: contain;
+      height: 100%;
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    padding: 0 5px;
+    display: flex;
+    flex-direction: column;
+  }
 }
