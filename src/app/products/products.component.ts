@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "./product";
-import {ProductService} from "../service/product.service";
-import {BasketService} from "../service/basket.service";
+import { Product } from './product';
+import { ProductService } from '../service/product.service';
+import { BasketService } from '../service/basket.service';
 
 @Component({
   selector: 'app-products',
@@ -20,11 +20,11 @@ export class ProductsComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
-  onSelect(product:Product) {
+  onSelect(product: Product) {
     this.product = product;
   }
 
-  addProduct(product:Product) {
+  addProduct(product: Product) {
     this.basketService.addProduct(product);
   }
 }

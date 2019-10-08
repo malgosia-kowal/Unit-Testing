@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from "../products/product";
+import { Product } from '../products/product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class BasketService {
     return this;
   }
 
-  addProduct(product:Product) {
+  addProduct(product: Product) {
     this.products.push(product);
     this.total += product.price;
   }

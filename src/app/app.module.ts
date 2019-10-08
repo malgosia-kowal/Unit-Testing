@@ -8,6 +8,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { BasketComponent } from './basket/basket.component';
 import { ButtonComponent } from './button/button.component';
+import { QuickviewComponent } from './quickview/quickview.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ButtonComponent } from './button/button.component';
     ProductsComponent,
     ProductDetailComponent,
     BasketComponent,
-    ButtonComponent
+    ButtonComponent,
+    QuickviewComponent
   ],
   imports: [
     BrowserModule,
