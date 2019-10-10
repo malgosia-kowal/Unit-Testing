@@ -1,6 +1,5 @@
 const Product = require('../entity/Product');
 
-
 class Basket {
 
   constructor() {
@@ -39,8 +38,25 @@ class Basket {
     this.total += product.price;
   }
 
-  removeProduct(productName) {
-    this.products = this.products.filter(p => p.name !== productName);
+  removeProduct(productName, productSize) {
+    const existingProductWithTheSameSize =
+      this.products.find(p =>
+        this.isTheSameProduct(p, { name: productName, size: productSize })
+      );
+
+    if (existingProductWithTheSameSize && existingProductWithTheSameSize.quantity > 1) {
+      this.products =
+        this.products.map(p => {
+          if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
+            p.quantity = p.quantity - 1;
+            return p;
+          }
+          return p;
+        });
+    } else {
+      this.products = this.products.filter(p => p.name !== productName);
+    }
+
     this.total = this.products.reduce((total, product) => total + product.price, 0);
   }
 
