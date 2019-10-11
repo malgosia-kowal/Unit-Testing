@@ -79,9 +79,8 @@ describe('basket', () => {
 
   it('should decrement basket count when removed the same product but different size', () => {
     const product = createProduct();
-    console.log(product)
-    const product2 = createProduct({name:product.name});
-    console.log(product2)
+    const product2 = createProduct({ name : product.name });
+    
     basket.addProduct(product);
     basket.addProduct(product2);
     basket.removeProduct(product.name, product.size);
@@ -95,7 +94,7 @@ describe('basket', () => {
 
     basket.addProduct(product);
     basket.applyDiscount(20);
-
+    
     expect(basket.total).toEqual(80);
   });
 
