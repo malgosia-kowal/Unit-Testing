@@ -1,9 +1,7 @@
 const basket = require('./Basket');
 const Product = require('../entity/Product');
+const createProduct = require('../factory/Product');
 
-const mockProduct = new Product('nikey', 1255, 1, '8');
-const mockProduct2 = new Product('cream', 342, 1, '8');
-const mockProductClone = new Product('nikey', 1255, 1, '5');
 const invalidProduct = ['cream', 342, '6', 7];
 
 describe('basket', () => {
@@ -17,70 +15,97 @@ describe('basket', () => {
   });
 
   it('should add product to the basket', () => {
-    basket.addProduct(mockProduct);
+    const product = createProduct();
+
+    basket.addProduct(product);
 
     expect(basket.get().products.length).toEqual(1);
-    expect(basket.get().total).toEqual(1255);
+    expect(basket.get().total).toEqual(product.price);
   });
 
   it('should add more products to the basket and check price and amount', () => {
-    basket.addProduct(mockProduct);
-    basket.addProduct(mockProduct2);
+    const product = createProduct();
+    const product2 = createProduct()
+
+    basket.addProduct(product);
+    basket.addProduct(product2);
 
     expect(basket.get().products.length).toEqual(2);
-    expect(basket.get().total).toEqual(1597);
+    expect(basket.get().total).toEqual(product.price + product2.price);
   });
 
-  it('should increment products amount when adding the same product but different size', () => {
-    basket.addProduct(mockProduct);
-    basket.addProduct(mockProductClone);
+  it('should increment products count when adding the same product name but different size', () => {
+    const product = createProduct();
+    const product2 = createProduct({ name : product.name });
+    
+    basket.addProduct(product);
+    basket.addProduct(product2);
 
     expect(basket.get().products.length).toEqual(2);
-    expect(mockProduct.quantity).toEqual(1);
+    expect(product.quantity).toEqual(1);
   });
 
-  it('should add the same product and increment it quantity', () => {
-    basket.addProduct(mockProduct);
-    basket.addProduct(mockProduct);
+  it('should add the same product and increment its quantity', () => {
+    const product = createProduct();
+
+    basket.addProduct(product);
+    basket.addProduct(product);
 
     expect(basket.get().products.length).toEqual(1);
-    expect(mockProduct.quantity).toEqual(2);
+    expect(product.quantity).toEqual(2);
   });
 
-  it('product should have correct quantity for the start', () => {
-    basket.addProduct(mockProduct);
-    expect(mockProduct.quantity).toEqual(1)
-  });
+  it('should remove product from the basket and change products price and amount', () => {
+    const product = createProduct();
+    const product2 = createProduct();
 
-  it('should removed product from the basket and change products price and amount', () => {
-    basket.addProduct(mockProduct);
-    basket.addProduct(mockProduct2);
-    basket.removeProduct(mockProduct.name, mockProduct.size);
+    basket.addProduct(product);
+    basket.addProduct(product2);
+    basket.removeProduct(product.name, product.size);
 
     expect(basket.get().products.length).toEqual(1);
-    expect(basket.get().total).toEqual(342);
+    expect(basket.get().total).toEqual(product2.price);
   });
 
   it('should decrement product quantity when removed the same product', () => {
-    basket.addProduct(mockProduct);
-    basket.addProduct(mockProduct);
-    basket.removeProduct(mockProduct.name, mockProduct.size);
+    const product = createProduct();
+    
+    basket.addProduct(product);
+    basket.addProduct(product);
+    basket.removeProduct(product.name, product.size);
 
-    expect(mockProduct.quantity).toEqual(1);
+    expect(product.quantity).toEqual(1);
   });
 
-  it('should apply amount discount for the product price', () => {
-    basket.addProduct(mockProduct2);
-    basket.applyDiscount(20, false);
-
-    expect(basket.get().total).toEqual(322);
+  it('should decrement basket count when removed the same product but different size', () => {
+    const product = createProduct();
+    console.log(product)
+    const product2 = createProduct({name:product.name});
+    console.log(product2)
+    basket.addProduct(product);
+    basket.addProduct(product2);
+    basket.removeProduct(product.name, product.size);
+    
+    expect(basket.get().products.length).toEqual(1)
   });
 
   it('should apply a percentage discount on the price of the product', () => {
-    basket.addProduct(mockProduct2);
+    const product = createProduct();
+    product.price = 100;
+
+    basket.addProduct(product);
     basket.applyDiscount(20);
 
-    expect(basket.get().total).toEqual(273.6);
+    expect(basket.total).toEqual(80);
+  });
+
+  it('should apply amount discount for the product price', () => {
+    const product = createProduct();
+ 
+    basket.addProduct(product);
+    basket.applyDiscount(20, false);
+
+    expect(product.price).toEqual(basket.total + 20);
   });
 
   it('should clear the basket', () => {

@@ -19,5 +19,8 @@
   "homepage": "https://github.com/malgosia-kowal/Unit-Testing#readme",
   "devDependencies": {
     "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "faker": "^4.1.0"
   }
 }
