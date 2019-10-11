@@ -54,7 +54,7 @@ class Basket {
           return p;
         });
     } else {
-      this.products = this.products.filter(p => p.name !== productName);
+      this.products = this.products.filter(p => !this.isTheSameProduct(p, { name: productName, size: productSize }));
     }
 
     this.total = this.products.reduce((total, product) => total + product.price, 0);
