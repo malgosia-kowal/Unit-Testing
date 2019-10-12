@@ -1,6 +1,8 @@
+const Product = require('../entity/Product');
+
 class Basket {
 
-  constructor(){
+  constructor() {
     this.products = [];
     this.total = 0;
   }
@@ -9,13 +11,52 @@ class Basket {
     return this;
   }
 
+  isTheSameProduct(product, otherProduct) {
+    return product.name === otherProduct.name && product.size === otherProduct.size;
+  }
+
   addProduct(product) {
-    this.products.push(product);
+    if (!(product instanceof Product)) {
+      throw new Error('Argument must be a valid product');
+    }
+
+    const existingProductWithTheSameSize =
+      this.products.find(p => this.isTheSameProduct(p, product));
+
+    if (existingProductWithTheSameSize) {
+      this.products =
+        this.products.map(p => {
+          if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
+            p.quantity = p.quantity + 1;
+            return p;
+          }
+          return p;
+        });
+    } else {
+      this.products.push(product);
+    }
     this.total += product.price;
   }
 
-  removeProduct(productName) {
-    this.products = this.products.filter(p => p.name !== productName);
+  removeProduct(productName, productSize) {
+    const existingProductWithTheSameSize =
+      this.products.find(p =>
+        this.isTheSameProduct(p, { name: productName, size: productSize })
+      );
+
+    if (existingProductWithTheSameSize && existingProductWithTheSameSize.quantity > 1) {
+      this.products =
+        this.products.map(p => {
+          if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
+            p.quantity = p.quantity - 1;
+            return p;
+          }
+          return p;
+        });
+    } else {
+      this.products = this.products.filter(p => !this.isTheSameProduct(p, { name: productName, size: productSize }));
+    }
+
     this.total = this.products.reduce((total, product) => total + product.price, 0);
   }
 
