@@ -19,6 +19,9 @@
       "dom"
     ]
   },
+  "exclude": [
+    "**/*.test.ts"
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
