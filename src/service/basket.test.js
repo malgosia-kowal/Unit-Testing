@@ -6,7 +6,7 @@ const invalidProduct = ['cream', 342, '6', 7];
 
 describe('basket', () => {
   beforeEach(() => {
-    basket.clear()
+    basket.clear();
   });
 
   it('should check if basket is empty at the start', () => {
@@ -25,7 +25,7 @@ describe('basket', () => {
 
   it('should add more products to the basket and check price and amount', () => {
     const product = createProduct();
-    const product2 = createProduct()
+    const product2 = createProduct();
 
     basket.addProduct(product);
     basket.addProduct(product2);
@@ -36,7 +36,7 @@ describe('basket', () => {
 
   it('should increment products count when adding the same product name but different size', () => {
     const product = createProduct();
-    const product2 = createProduct({ name : product.name });
+    const product2 = createProduct({ name: product.name });
     
     basket.addProduct(product);
     basket.addProduct(product2);
@@ -79,19 +79,18 @@ describe('basket', () => {
 
   it('should decrement basket count when removed the same product but different size', () => {
     const product = createProduct();
-    const product2 = createProduct({ name : product.name });
+    const product2 = createProduct({ name: product.name });
     
     basket.addProduct(product);
     basket.addProduct(product2);
     basket.removeProduct(product.name, product.size);
     
-    expect(basket.get().products.length).toEqual(1)
+    expect(basket.get().products.length).toEqual(1);
   });
 
   it('should apply a percentage discount on the price of the product', () => {
-    const product = createProduct();
-    product.price = 100;
-
+    const product = createProduct({ price: 100 });
+    
     basket.addProduct(product);
     basket.applyDiscount(20);
     
@@ -100,11 +99,13 @@ describe('basket', () => {
 
   it('should apply amount discount for the product price', () => {
     const product = createProduct();
- 
-    basket.addProduct(product);
-    basket.applyDiscount(20, false);
+    const discountValue = 20;
 
-    expect(product.price).toEqual(basket.total + 20);
+    basket.addProduct(product);
+    const totalBeforeDiscount = basket.total;
+    basket.applyDiscount(discountValue, false);
+
+    expect(basket.total).toEqual(totalBeforeDiscount - discountValue);
   });
 
   it('should clear the basket', () => {
