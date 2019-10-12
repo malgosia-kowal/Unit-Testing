@@ -1,5 +1,6 @@
 import 'jest';
 import { BasketService } from './basket.service';
+import { createProduct } from '../factory/Product';
 
 const basket = new BasketService();
 
@@ -114,9 +115,4 @@ describe('basket', () => {
     expect(basket.get().total).toEqual(0);
   });
 
-  it('should throw the error when product is invalid', () => {
-    expect(() => {
-      basket.addProduct(invalidProduct);
-    }).toThrow();
-  });
 });

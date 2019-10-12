@@ -1,7 +1,11 @@
 # Unit-Testing
 
 ### Set up
-npm install 
+
+##### this install project dependencies from package.json
+`npm install`
+
+##### this install Angular globally on your computer 
 
 `npm install -g @angular/cli`
 
