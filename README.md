@@ -11,3 +11,10 @@
 
 ### Run front end
 `npm run start`
+
+
+## Testing
+
+to run unit test : `npm run test` 
+
+to run e2e tests : `npm run e2e:open`
