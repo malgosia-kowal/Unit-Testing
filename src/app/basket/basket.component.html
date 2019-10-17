@@ -1,18 +1,12 @@
 <div class="basketContainer">
   <div class="basketContainerDetail">
     <div> Total: {{ basketService.total }} zl</div>
-    <div> Products: {{ basketService.products.length }}</div>
+    <div> Products: {{ basketService.products.value.length }}</div>
   </div>
   <div>
-    <app-button
-      text="Clean"
-      (action)="basketService.clear()"
-    >
+    <app-button text="Clean" (action)="basketService.clear()">
     </app-button>
-    <app-button
-      text="Quick view"
-      (action)="toggleQuickview()"
-    >
+    <app-button text="Quick view" (action)="toggleQuickview()">
     </app-button>
   </div>
 </div>

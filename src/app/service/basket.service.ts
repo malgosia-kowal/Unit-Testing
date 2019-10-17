@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../products/product';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketService {
-  products: Product[] = [];
+  products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   total: number = 0;
   constructor() { }
 
@@ -19,43 +20,47 @@ export class BasketService {
 
   addProduct(product: Product): void {
     const existingProductWithTheSameSize =
-      this.products.find(p => this.isTheSameProduct(p, product));
+      this.products.value.find(p => this.isTheSameProduct(p, product));
 
     if (existingProductWithTheSameSize) {
-      this.products =
-        this.products.map(p => {
+      this.products.next(
+        this.products.value.map(p => {
           if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
             p.quantity = p.quantity + 1;
             return p;
           }
           return p;
-        });
+        }));
     } else {
-      this.products.push(product);
+      this.products.next(this.products.value.concat(product));
     }
     this.total += product.price;
   }
 
   removeProduct(productName: string, productSize: string) {
     const existingProductWithTheSameSize =
-      this.products.find(p =>
+      this.products.value.find(p =>
         this.isTheSameProduct(p, { name: productName, size: productSize })
       );
 
     if (existingProductWithTheSameSize && existingProductWithTheSameSize.quantity > 1) {
-      this.products =
-        this.products.map(p => {
+      this.products.next(
+        this.products.value.map(p => {
           if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
             p.quantity = p.quantity - 1;
             return p;
           }
           return p;
-        });
+        }));
     } else {
-      this.products = this.products.filter(p => !this.isTheSameProduct(p, { name: productName, size: productSize }));
+      this.products.next(
+        this.products
+          .value
+          .filter(p => !this.isTheSameProduct(p, { name: productName, size: productSize }))
+      );
     }
 
-    this.total = this.products.reduce((total, product) => total + product.price, 0);
+    this.total = this.products.value.reduce((total, product) => total + product.price, 0);
   }
 
   applyDiscount(discountAmount, percent = true) {
@@ -67,7 +72,7 @@ export class BasketService {
   }
 
   clear() {
-    this.products = [];
+    this.products.next([]);
     this.total = 0;
   }
 }
