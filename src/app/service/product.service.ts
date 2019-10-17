@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Product } from '../products/product';
 
 const products: Product[] = [
-  { name: 'nikey', price: 123, quantity: 1, size: '8', image: 'http://placekitten.com/200/300'},
-  { name: 'nikey', price: 123, quantity: 1, size: '8.5', image: 'http://placekitten.com/200/300'},
-  { name: 'rebook', price: 123, quantity: 1, size: '9', image: 'http://placekitten.com/200/300'},
-  { name: 'cream', price: 123, quantity: 1, size: '10', image: 'http://placekitten.com/200/300'},
+  { name: 'Pushkin', price: 123, quantity: 1, size: 'red', image: 'http://placekitten.com/250/300' },
+  { name: 'Pushkin', price: 123, quantity: 1, size: 'grey', image: 'http://placekitten.com/250/300' },
+  { name: 'Cuddle', price: 123, quantity: 1, size: 'pink', image: 'http://placekitten.com/250/300' },
+  { name: 'Charles', price: 123, quantity: 1, size: 'ginger', image: 'http://placekitten.com/250/300' },
 ];
 
 @Injectable({

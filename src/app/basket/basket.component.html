@@ -1,9 +1,9 @@
 <div class="basketContainer">
   <div class="basketContainerDetail">
     <div> Total: {{ basketService.total }} zl</div>
-    <div> Products: {{ basketService.products.value.length }}</div>
+    <div> Cats: {{ basketService.products.value.length }}</div>
   </div>
-  <div>
+  <div class="basketContainerButtons">
     <app-button text="Clean" (action)="basketService.clear()">
     </app-button>
     <app-button text="Quick view" (action)="toggleQuickview()">

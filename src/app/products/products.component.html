@@ -4,13 +4,18 @@
   <div class="productCard" *ngFor="let product of products" (click)="onSelect(product)">
     <img src="{{ product.image }}">
     <h3>{{ product.name }}</h3>
-    <div>{{ product.size }}</div>
-    <div>{{ product.price }} zl</div>
+    <hr>
+    <div>
+      <span class="productCardPropHeader">Color: </span>
+      <span class="productCardPropValue">{{ product.size }}</span>
+    </div>
+    <div>
+      <span class="productCardPropHeader">Price </span>
+      <span class="productCardPropValue">{{ product.price }}</span> zl
+    </div>
+    <hr>
     <div class="productCardFooter">
-      <app-button
-        text="Add to basket"
-        (action)="addProduct(product); $event.stopPropagation()"
-      >
+      <app-button text="Add to basket" (action)="addProduct(product); $event.stopPropagation()">
       </app-button>
     </div>
   </div>

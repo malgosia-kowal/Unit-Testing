@@ -1,16 +1,38 @@
 .productsContainer {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 70px;
 }
 
 .productCard {
   padding: 10px;
-  margin: 10px;
-  box-shadow: 0 5px 10px rgb(0, 0, 0, 0.2);
+  margin: 10px 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  height: 100%;
   cursor: pointer;
+  background-color: white;
+  transform: scale(1);
+  transition: all .2s;
+
+  & > div {
+    -webkit-font-smoothing: subpixel-antialiased;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  &PropHeader {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &PropValue {
+    font-style: italic;
+    font-size: 16px;
+  }
+
   &:hover {
     box-shadow: 0 10px 15px rgb(0, 0, 0, 0.4);
+    transform: scale(1.01);
   }
 
   &Footer {
