@@ -15,7 +15,11 @@
     </div>
     <hr>
     <div class="productCardFooter">
-      <app-button text="Add to basket" (action)="addProduct(product); $event.stopPropagation()">
+      <app-button 
+        id="addToBasketButton-0"
+        text="Add to basket" 
+        (action)="addProduct(product); $event.stopPropagation()">
+         
       </app-button>
     </div>
   </div>
