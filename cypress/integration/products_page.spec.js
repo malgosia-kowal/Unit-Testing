@@ -1,13 +1,8 @@
 describe('My First Test', () => {
 
-  // 1. Visit a web page.
-  // 2. Query for an element.
-  // 3. Interact with that element.
-  // 4. Assert about the content on the page.
- 
-  describe('My First Test', () => {
+  describe('basket', () => {
 
-    it('Visits the products page', () => {
+    it('should visit the product page', () => {
       cy.visit('http://localhost:4200/');
   
       cy.get('app-products').should('exist');
@@ -15,68 +10,55 @@ describe('My First Test', () => {
       cy.get('app-basket').should('exist');
     });
   
-    it('Add product to the basket', () => {
+    it('should add product to the basket', () => {
       cy.get('[id="addToBasketButton-0"]')
           .click();
-      // TODO: this assertion relies on mockend
-      // we should find a way to make it more robust
-      cy.get('[id="basketTotal"]').should('contain', '123')
+    
+      cy.get('[id="basketTotal"]').should('not.contain', '0');
+      cy.get('[id="basketLength"]').should('not.contain', '0');
+     }); 
+  
+    it('should add the same products to the basket', () => {
+      cy.get('[id="addToBasketButton-0"]').contains('Add to basket')
+          .click();
+      cy.get('[id="addToBasketButton-0"]').contains('Add to basket')
+          .click();
+  
+      cy.get('[id="basketTotal"]').should('not.contain', '0');
+      cy.get('[id="basketLength"]').should('not.contain', '0');
     }); 
   
-    it('Add the same product to the basket', () => {
-      cy.get('button').contains('Add to basket')
-          .click();
-      cy.get('button').contains('Add to basket')
-          .click();
-  
-      cy.get('[id="basketLength"]').should('contain', '1');
-      cy.get('[id="basketTotal"]').should('contain', '246');
-    }); 
-  
-    it('Remove product from basket', () => {
-      cy.get('button').contains('Add to basket')
-          .click();
-      cy.get('button').contains('Clean')
-          .click();
-          
-      cy.get('[id="basketLength"]').should('contain', '0');
-      
-      cy.get('[id="basketTotal"]').should('contain', '0');
-    }); 
-  
-    it('add two different products to basket', () => {
+    it('should add two different products to the basket', () => {
       cy.get('[id="addToBasketButton-0"]')
           .click();
       cy.get('[id="addToBasketButton-1"]')
           .click();
   
-      cy.get('[id="basketLength"]').should('contain', '2');
-      cy.get('[id="basketTotal"]').should('contain', '246');
+      cy.get('[id="basketTotal"]').should('not.contain', '0');
+      cy.get('[id="basketLength"]').should('not.contain', '0');
     }); 
   
-    it('open quickView and check if it is visible', () => {
+    it('should open quickView', () => {
       cy.get('[id="quickViewButton"]')
           .click();
   
-      cy.get('.quickviewContainer').should('be.visible')  
+      cy.get('.quickviewContainer').should('be.visible');
     });
       
-    it('close quickView and check if it is not visible', () => {
+    it('should close quickView', () => {
       cy.get('[id="quickViewButton"]')
           .click();
   
       cy.get('.quickviewContainer').should('not.be.visible');  
-      
     }); 
   
-    it('clean basket', () => {
-    
+    it('should clean the basket', () => {
       cy.get('[id="clearTheBasketButton"]')
           .click();
   
       cy.get('[id="basketTotal"]').should('contain', '0');
+      cy.get('[id="basketLength"]').should('contain', '0');
     });
-  
-  });
 
+  });
 });
