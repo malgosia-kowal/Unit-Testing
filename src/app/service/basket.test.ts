@@ -2,15 +2,17 @@ import 'jest';
 import { BasketService } from './basket.service';
 import { createProduct } from '../factory/Product';
 
+
 const basket = new BasketService();
 
-describe('basket', () => {
+describe('Basket', () => {
+
   beforeEach(() => {
     basket.clear();
   });
 
   it('should check if basket is empty at the start', () => {
-    expect(basket.get().products.length).toEqual(0);
+    expect(basket.get().products.getValue().length).toEqual(0);
     expect(basket.get().total).toEqual(0);
   });
 
@@ -19,7 +21,7 @@ describe('basket', () => {
 
     basket.addProduct(product);
 
-    expect(basket.get().products.length).toEqual(1);
+    expect(basket.get().products.getValue().length).toEqual(1);
     expect(basket.get().total).toEqual(product.price);
   });
 
@@ -30,7 +32,7 @@ describe('basket', () => {
     basket.addProduct(product);
     basket.addProduct(product2);
 
-    expect(basket.get().products.length).toEqual(2);
+    expect(basket.get().products.getValue().length).toEqual(2);
     expect(basket.get().total).toEqual(product.price + product2.price);
   });
 
@@ -41,7 +43,7 @@ describe('basket', () => {
     basket.addProduct(product);
     basket.addProduct(product2);
 
-    expect(basket.get().products.length).toEqual(2);
+    expect(basket.get().products.getValue().length).toEqual(2);
     expect(product.quantity).toEqual(1);
   });
 
@@ -51,7 +53,7 @@ describe('basket', () => {
     basket.addProduct(product);
     basket.addProduct(product);
 
-    expect(basket.get().products.length).toEqual(1);
+    expect(basket.get().products.getValue().length).toEqual(1);
     expect(product.quantity).toEqual(2);
   });
 
@@ -63,7 +65,7 @@ describe('basket', () => {
     basket.addProduct(product2);
     basket.removeProduct(product.name, product.size);
 
-    expect(basket.get().products.length).toEqual(1);
+    expect(basket.get().products.getValue().length).toEqual(1);
     expect(basket.get().total).toEqual(product2.price);
   });
 
@@ -85,7 +87,7 @@ describe('basket', () => {
     basket.addProduct(product2);
     basket.removeProduct(product.name, product.size);
     
-    expect(basket.get().products.length).toEqual(1);
+    expect(basket.get().products.getValue().length).toEqual(1);
   });
 
   it('should apply a percentage discount on the price of the product', () => {
@@ -111,7 +113,7 @@ describe('basket', () => {
   it('should clear the basket', () => {
     basket.clear();
 
-    expect(basket.get().products.length).toEqual(0);
+    expect(basket.get().products.getValue().length).toEqual(0);
     expect(basket.get().total).toEqual(0);
   });
 
