@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasketComponent should render correctly 1`] = `
+<app-basket
+  basketService={[Function BasketService]}
+  toggleService={[Function ToggleService]}
+>
+  <div
+    class="basketContainer"
+  >
+    <div
+      class="basketContainerDetail"
+    >
+      <div>
+        <span
+          id="basketTotal"
+        >
+           Total: 0 zl
+        </span>
+      </div>
+      <div>
+        <span
+          id="basketLength"
+        >
+           Cats: 0
+        </span>
+      </div>
+    </div>
+    <div
+      class="basketContainerButtons"
+    >
+      <app-button
+        id="clearTheBasketButton"
+        ng-reflect-text="Clean"
+        text="Clean"
+      >
+        <button>
+           Clean
+  
+        </button>
+      </app-button>
+      <app-button
+        id="quickViewButton"
+        ng-reflect-text="Quick view"
+        text="Quick view"
+      >
+        <button>
+           Quick view
+  
+        </button>
+      </app-button>
+    </div>
+  </div>
+</app-basket>
+`;

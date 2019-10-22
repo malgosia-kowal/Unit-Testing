@@ -41,16 +41,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupJest.ts"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "tsconfig.spec.json"
-      }
-    }
   }
 }
