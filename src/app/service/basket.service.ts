@@ -60,7 +60,9 @@ export class BasketService {
       );
     }
 
-    this.total = this.products.value.reduce((total, product) => total + product.price, 0);
+    this.total =
+      this.products.value.reduce((total, product) =>
+        total + (product.price * product.quantity), 0);
   }
 
   applyDiscount(discountAmount, percent = true) {
