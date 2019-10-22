@@ -69,6 +69,20 @@ describe('Basket', () => {
     expect(basket.get().total).toEqual(product2.price);
   });
 
+  it('should convert price properly after remove product when same products left', () => {
+    const product = createProduct();
+    const product2 = createProduct();
+    const same_product_sum = product.price + product.price
+
+    basket.addProduct(product);
+    basket.addProduct(product);
+    basket.addProduct(product2);
+    basket.removeProduct(product2.name, product2.size);
+
+    expect(basket.get().products.getValue().length).toEqual(1);
+    expect(basket.get().total).toEqual(same_product_sum);
+  });
+
   it('should decrement product quantity when removed the same product', () => {
     const product = createProduct();
     
