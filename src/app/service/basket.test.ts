@@ -36,6 +36,17 @@ describe('Basket', () => {
     expect(basket.get().total).toEqual(product.price + product2.price);
   });
 
+  it('product should have correct quantity at the start after clear the basket', () => {
+    const product = createProduct()
+
+    basket.addProduct(product);
+    basket.addProduct(product);
+    basket.clear();
+    basket.addProduct(product);
+
+    expect(product.quantity).toEqual(1)
+  });
+
   it('should increment products count when adding the same product name but different size', () => {
     const product = createProduct();
     const product2 = createProduct({ name: product.name });
@@ -72,7 +83,7 @@ describe('Basket', () => {
   it('should sum price based on product price and quantity', () => {
     const product = createProduct();
     const product2 = createProduct();
-    const same_product_sum = product.price + product.price
+    const sameProductSum = product.price + product.price
 
     basket.addProduct(product);
     basket.addProduct(product);
@@ -80,7 +91,7 @@ describe('Basket', () => {
     basket.removeProduct(product2.name, product2.size);
 
     expect(basket.get().products.getValue().length).toEqual(1);
-    expect(basket.get().total).toEqual(same_product_sum);
+    expect(basket.get().total).toEqual(sameProductSum);
   });
 
   it('should decrement product quantity when removed the same product', () => {
