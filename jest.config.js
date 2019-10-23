@@ -9,7 +9,7 @@ module.exports = {
   },
   coverageDirectory: '<rootDir>/testing/coverage',
   collectCoverageFrom: [
-    '**/plugin/**/*.ts',
+    'src/app/**/*.ts',
   ],
   transformIgnorePatterns: [
     "node_modules/(?!@ngrx)"
@@ -18,4 +18,8 @@ module.exports = {
     "^.+\\.(ts|js|html)$": "ts-jest",
     "^.+\\.js$": "babel-jest"
   },
+  testMatch: [
+    '**/__tests__/**/*.(js|ts|tsx)',
+    '**/?(*.)+(test).(js|ts|tsx)',
+  ],
 }
