@@ -1,8 +1,9 @@
 import {
   async,
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { BasketComponent } from './basket.component';
 import { ButtonComponent } from '../button/button.component';
 import { BasketService } from '../service/basket.service';
@@ -50,9 +51,10 @@ describe('BasketComponent', () => {
   });
 
   it('can toggle quickview', async () => {
-    component.toggleQuickview();
+    const toggleButton = fixture.debugElement.query(By.css('#quickViewButton')).nativeElement;
+    toggleButton.click();
     toggleService.visible(Toggable.Quickview).subscribe(value => expect(value).toBeTruthy());
-    component.toggleQuickview();
+    toggleButton.click();
     toggleService.visible(Toggable.Quickview).subscribe(value => expect(value).toBeFalsy());
   });
 
