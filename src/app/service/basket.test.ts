@@ -65,7 +65,7 @@ describe('Basket', () => {
     basket.addProduct(product);
 
     expect(basket.get().products.getValue().length).toEqual(1);
-    expect(product.quantity).toEqual(2);
+    expect(basket.get().products.getValue()[0].quantity).toEqual(2);
   });
 
   it('should remove product from the basket and change products price and amount', () => {

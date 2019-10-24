@@ -26,8 +26,7 @@ export class BasketService {
       this.products.next(
         this.products.value.map(p => {
           if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
-            p.quantity = p.quantity + 1;
-            return p;
+            return { ...p, quantity: p.quantity + 1 };
           }
           return p;
         }));
