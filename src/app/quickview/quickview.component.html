@@ -1,18 +1,22 @@
-<div *ngIf="visible" class="quickviewContainer">
-  <h4>Your basket</h4>
-  <div *ngIf="!products.length">No Cats in the Basket</div>
-  <div>
-    <div class="quickviewProduct" *ngFor="let product of products">
-      <div>
-        <img src="{{ product.image }}">
+<div *ngIf="visible">
+  <div (click)="toggle()" class="overlay">
+  </div>
+  <div class="quickviewContainer">
+    <h4>Your basket</h4>
+    <div *ngIf="!products.length">No Cats in the Basket</div>
+    <div>
+      <div class="quickviewProduct" *ngFor="let product of products">
+        <div>
+          <img src="{{ product.image }}">
+        </div>
+        <div>
+          <div>Name: {{ product.name }}</div>
+          <div>Color: {{ product.size }}</div>
+          <div>Price: {{ product.price }} zl</div>
+          <div>Quantity: {{ product.quantity }}</div>
+        </div>
+        <div class="closeIcon" (click)="basketService.removeProduct(product.name, product.size)"></div>
       </div>
-      <div>
-        <div>Name: {{ product.name }}</div>
-        <div>Color: {{ product.size }}</div>
-        <div>Price: {{ product.price }} zl</div>
-        <div>Quantity: {{ product.quantity }}</div>
-      </div>
-      <div class="closeIcon" (click)="basketService.removeProduct(product.name, product.size)"></div>
     </div>
   </div>
 </div>
