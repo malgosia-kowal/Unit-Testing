@@ -12,11 +12,11 @@ describe('Quick View', () => {
     });
 
     it('should check if product is visible in quickview', () => {
+      cy.get('[id="addToBasketButton-1"]')
+        .click(); 
       cy.get('[id="quickViewButton"]')
         .click();
-      cy.get('[id="addToBasketButton-1"]')
-        .click();   
-            
+        
       cy.get('.quickviewProduct')
         .should('have.length', '1');  
     });
@@ -67,16 +67,7 @@ describe('Quick View', () => {
         .find('.quickviewProduct')
         .should('have.length', '3');  
     });
-      
-    it('should check if product can be added when quickview is open', () => {
-      cy.get('[id="addToBasketButton-2"]')
-        .click();  
-               
-      cy.get('.quickviewContainer')
-        .find('.quickviewProduct')
-        .should('have.length', '3');  
-    }); 
-
+    
     it('should clean all products in the quick view', () => {
       cy.get('[id="clearTheBasketButton"]')
         .click();

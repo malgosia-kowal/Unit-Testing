@@ -70,20 +70,5 @@ describe('Products Page', () => {
       cy.get('.quickviewContainer')
         .should('not.be.visible');  
     }); 
-  
-    it('should check if user can add every products to the basket', () => {
-      cy.get('[id="addToBasketButton-0"]')
-        .click();
-      cy.get('[id="addToBasketButton-1"]')
-        .click();  
-      cy.get('[id="addToBasketButton-2"]')
-        .click();      
-      cy.get('[id="addToBasketButton-3"]')
-        .click();   
-        
-      cy.get('.quickviewContainer')
-        .find('.quickviewProduct')
-        .should('have.length', '4');  
-    });
 
 });
