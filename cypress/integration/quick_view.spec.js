@@ -39,18 +39,18 @@ describe('Quick View', () => {
       
     it('should check if the same products can be added to quickview', () => {
       cy.get('[id="addToBasketButton-0"]')
-         .click(); 
+        .click(); 
       cy.get('[id="addToBasketButton-0"]')
-         .click();   
+        .click();   
       cy.get('[id="quickViewButton"]')
-         .click();      
+        .click();      
       
       cy.get('.quickviewContainer')
-         .find('.quickviewProduct')
-         .should('have.length','1'); 
+        .find('.quickviewProduct')
+        .should('have.length','1'); 
       
       cy.get('[id="quickViewButton"]')
-         .click();    
+        .click();    
     });
       
     it('should check if many different products can be added to quickview', () => {
@@ -75,6 +75,14 @@ describe('Quick View', () => {
       cy.get('.quickviewContainer')
         .find('.quickviewProduct')
         .should('have.length', '0');  
+    });
+
+    it('should close quickView when user clicks outside of it', () => {
+      cy.get('.overlay')
+        .click();
+
+      cy.get('.quickviewContainer')
+        .should('not.be.visible');  
     });
 
 });
