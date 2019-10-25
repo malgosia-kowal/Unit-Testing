@@ -1,19 +1,29 @@
 .basketContainer {
+  z-index: 999;
   position: fixed;
-  height: 50px;
   bottom: 0;
   background: white;
-  width: 100%;
+  width: 100vw;
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 
   &Detail {
-    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    & > div {
+      font-size: 20px;
+    }
+  }
+
+  &Buttons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 40px;
   }
 }

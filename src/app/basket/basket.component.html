@@ -1,18 +1,12 @@
 <div class="basketContainer">
   <div class="basketContainerDetail">
-    <div> Total: {{ basketService.total }} zl</div>
-    <div> Products: {{ basketService.products.length }}</div>
+    <div> <span id = "basketTotal"> Total: {{ basketService.total }} zl</span></div>
+    <div><span id = "basketLength"> Cats: {{ basketService.products.value.length }}</span></div>
   </div>
-  <div>
-    <app-button
-      text="Clean"
-      (action)="basketService.clear()"
-    >
+  <div class="basketContainerButtons">
+    <app-button text="Clean" id = "clearTheBasketButton" (action)="basketService.clear()">
     </app-button>
-    <app-button
-      text="Quick view"
-      (action)="toggleQuickview()"
-    >
+    <app-button id = "quickViewButton" text="Quick view" (action)="toggleQuickview()">
     </app-button>
   </div>
 </div>
