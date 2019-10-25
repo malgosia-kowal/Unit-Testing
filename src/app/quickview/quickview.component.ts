@@ -18,4 +18,8 @@ export class QuickviewComponent implements OnInit {
     this.basketService.products.subscribe(products => this.products = products);
   }
 
+  toggle() {
+    this.toggleService.toggle(Toggable.Quickview);
+  }
+
 }

@@ -26,8 +26,7 @@ export class BasketService {
       this.products.next(
         this.products.value.map(p => {
           if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
-            p.quantity = p.quantity + 1;
-            return p;
+            return { ...p, quantity: p.quantity + 1 };
           }
           return p;
         }));
@@ -60,7 +59,9 @@ export class BasketService {
       );
     }
 
-    this.total = this.products.value.reduce((total, product) => total + product.price, 0);
+    this.total =
+      this.products.value.reduce((total, product) =>
+        total + (product.price * product.quantity), 0);
   }
 
   applyDiscount(discountAmount, percent = true) {
