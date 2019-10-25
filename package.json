@@ -9,7 +9,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cc": "jest --coverage",
-    "e2e:open": "npx cypress open"
+    "e2e:open": "npx cypress open",
+    "e2e:run": "npx cypress run",
+    "tests": "npm run test && npm run e2e:run"
   },
   "private": true,
   "dependencies": {
