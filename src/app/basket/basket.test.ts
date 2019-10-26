@@ -8,7 +8,7 @@ import { BasketComponent } from './basket.component';
 import { ButtonComponent } from '../button/button.component';
 import { BasketService } from '../service/basket.service';
 import { ToggleService, Toggable } from '../service/toggle.service';
-
+import { createProduct } from '../factory/Product';
 
 describe('BasketComponent', () => {
   let component: BasketComponent;
@@ -44,18 +44,43 @@ describe('BasketComponent', () => {
     expect(fixture).toMatchSnapshot();
   });
 
+  it('should render correctly with cat in the basket', () => {
+    const product = createProduct({ price: 320 });
+    component.basketService.addProduct(product);
+
+    fixture.detectChanges();
+
+    expect(fixture).toMatchSnapshot();
+  });
+
   it('should set the dependecies', () => {
     component.ngOnInit();
+
     expect(component.toggleService).toBe(toggleService);
     expect(component.basketService).toBe(basketService);
   });
 
-  it('can toggle quickview', async () => {
+  it('can toggle quickview', () => {
     const toggleButton = fixture.debugElement.query(By.css('#quickViewButton')).nativeElement;
+
     toggleButton.click();
+
     toggleService.visible(Toggable.Quickview).subscribe(value => expect(value).toBeTruthy());
+
     toggleButton.click();
+    
     toggleService.visible(Toggable.Quickview).subscribe(value => expect(value).toBeFalsy());
+  });
+
+  it('can clean the basket', () => {
+    const product = createProduct();
+    basketService.addProduct(product);
+
+    const cleanBasketButton = fixture.debugElement.query(By.css('#clearTheBasketButton')).nativeElement;
+    
+    cleanBasketButton.click();
+
+    basketService.products.subscribe(products => expect(products).toHaveLength(0));
   });
 
 });
