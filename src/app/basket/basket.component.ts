@@ -11,8 +11,7 @@ export class BasketComponent implements OnInit {
 
   constructor(public basketService: BasketService, public toggleService: ToggleService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toggleQuickview() {
     this.toggleService.toggle(Toggable.Quickview);

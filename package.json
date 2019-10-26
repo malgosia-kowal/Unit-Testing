@@ -9,7 +9,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cc": "jest --coverage",
-    "e2e:open": "npx cypress open"
+    "e2e:open": "npx cypress open",
+    "e2e:run": "npx cypress run",
+    "tests": "npm run test && npm run e2e:run"
   },
   "private": true,
   "dependencies": {
@@ -41,16 +43,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupJest.ts"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "tsconfig.spec.json"
-      }
-    }
   }
 }
