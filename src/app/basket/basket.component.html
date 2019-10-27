@@ -4,7 +4,7 @@
     <div><span id="basketLength"> Cats: {{ basketService.products.value.length }}</span></div>
   </div>
   <div class="basketContainerButtons">
-    <app-button text="Clean" id="clearTheBasketButton" (action)="console.log('called')">
+    <app-button text="Clean" id="clearTheBasketButton" (action)="basketService.clear()">
     </app-button>
     <app-button id="quickViewButton" text="Quick view" (action)="toggleQuickview()">
     </app-button>

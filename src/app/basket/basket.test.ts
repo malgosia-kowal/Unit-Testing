@@ -9,6 +9,8 @@ import { ButtonComponent } from '../button/button.component';
 import { BasketService } from '../service/basket.service';
 import { ToggleService, Toggable } from '../service/toggle.service';
 import { createProduct } from '../factory/Product';
+import { tap, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 describe('BasketComponent', () => {
   let component: BasketComponent;
@@ -60,27 +62,28 @@ describe('BasketComponent', () => {
     expect(component.basketService).toBe(basketService);
   });
 
-  it('can toggle quickview', () => {
-    const toggleButton = fixture.debugElement.query(By.css('#quickViewButton')).nativeElement;
+  it('can toggle quickview', async () => {
+    const toggleButton = fixture.debugElement.query(By.css('#quickViewButton'));
 
-    toggleButton.click();
+    toggleButton.triggerEventHandler('action', 'test');
 
-    toggleService.visible(Toggable.Quickview).subscribe(value => expect(value).toBeTruthy());
+    const visibleSubject = (toggleService.visible(Toggable.Quickview).source as BehaviorSubject<boolean>);
 
-    toggleButton.click();
-    
-    toggleService.visible(Toggable.Quickview).subscribe(value => expect(value).toBeFalsy());
+    expect(visibleSubject.getValue()).toBeTruthy();
+
+    toggleButton.triggerEventHandler('action', 'test');
+    expect(visibleSubject.getValue()).toBeFalsy();
   });
 
   it('can clean the basket', () => {
     const product = createProduct();
-    basketService.addProduct(product);
+    component.basketService.addProduct(product);
+    fixture.detectChanges();
+    const cleanBasketButton = fixture.debugElement.query(By.css('#clearTheBasketButton'));
 
-    const cleanBasketButton = fixture.debugElement.query(By.css('#clearTheBasketButton')).nativeElement;
-    
-    cleanBasketButton.click();
+    cleanBasketButton.triggerEventHandler('action', 'test');
 
-    basketService.products.subscribe(products => expect(products).toHaveLength(0));
+    expect(component.basketService.products.getValue().length).toEqual(0);
   });
 
 });

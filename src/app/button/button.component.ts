@@ -11,7 +11,6 @@ export class ButtonComponent implements OnInit {
   @Output() action: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
