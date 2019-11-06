@@ -1,6 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Quickview component quick view should be visible 1`] = `
+exports[`Quickview component can render empty 1`] = `
+<app-quickview
+  basketService={[Function BasketService]}
+  products={[Function Array]}
+  toggleService={[Function ToggleService]}
+  visible={[Function Boolean]}
+>
+  <div>
+    <div
+      class="overlay"
+    />
+    <div
+      class="quickviewContainer"
+    >
+      <h4>
+        Your basket
+      </h4>
+      
+      <div>
+        No Cats in the Basket
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+</app-quickview>
+`;
+
+exports[`Quickview component should close quickView when click on overlay 1`] = `
 <app-quickview
   basketService={[Function BasketService]}
   products={[Function Array]}
@@ -11,7 +40,18 @@ exports[`Quickview component quick view should be visible 1`] = `
 </app-quickview>
 `;
 
-exports[`Quickview component should check if overlay is visible 1`] = `
+exports[`Quickview component should render closed by default 1`] = `
+<app-quickview
+  basketService={[Function BasketService]}
+  products={[Function Array]}
+  toggleService={[Function ToggleService]}
+  visible="false"
+>
+  
+</app-quickview>
+`;
+
+exports[`Quickview component should render products when is visible 1`] = `
 <app-quickview
   basketService={[Function BasketService]}
   products={[Function Array]}
@@ -60,81 +100,5 @@ exports[`Quickview component should check if overlay is visible 1`] = `
       </div>
     </div>
   </div>
-</app-quickview>
-`;
-
-exports[`Quickview component should check if quickView is visible with products 1`] = `
-<app-basket
-  basketService={[Function BasketService]}
-  toggleService={[Function ToggleService]}
->
-  <div
-    class="basketContainer"
-  >
-    <div
-      class="basketContainerDetail"
-    >
-      <div>
-        <span
-          id="basketTotal"
-        >
-           Total: 200 zl
-        </span>
-      </div>
-      <div>
-        <span
-          id="basketLength"
-        >
-           Cats: 1
-        </span>
-      </div>
-    </div>
-    <div
-      class="basketContainerButtons"
-    >
-      <app-button
-        id="clearTheBasketButton"
-        ng-reflect-text="Clean"
-        text="Clean"
-      >
-        <button>
-           Clean
-  
-        </button>
-      </app-button>
-      <app-button
-        id="quickViewButton"
-        ng-reflect-text="Quick view"
-        text="Quick view"
-      >
-        <button>
-           Quick view
-  
-        </button>
-      </app-button>
-    </div>
-  </div>
-</app-basket>
-`;
-
-exports[`Quickview component should close quickView when click on overlay 1`] = `
-<app-quickview
-  basketService={[Function BasketService]}
-  products={[Function Array]}
-  toggleService={[Function ToggleService]}
-  visible="false"
->
-  
-</app-quickview>
-`;
-
-exports[`Quickview component should render correctly 1`] = `
-<app-quickview
-  basketService={[Function BasketService]}
-  products={[Function Array]}
-  toggleService={[Function ToggleService]}
-  visible="false"
->
-  
 </app-quickview>
 `;

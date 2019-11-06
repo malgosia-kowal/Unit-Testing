@@ -27,7 +27,7 @@ import {
   
     beforeEach(async(async () => {
       TestBed.configureTestingModule({
-        declarations: [BasketComponent, ButtonComponent, QuickviewComponent],
+        declarations: [QuickviewComponent],
         providers: [
           { provide: ToggleService, useClass: ToggleService },
           { provide: BasketService, useClass: BasketService }
@@ -37,9 +37,6 @@ import {
         .then(() => {
           fixture = TestBed.createComponent(QuickviewComponent);
           quickviewComponent = fixture.componentInstance;
-
-          fixture2 = TestBed.createComponent(BasketComponent);
-          basketComponent = fixture2.componentInstance;
 
           toggleService = TestBed.get(ToggleService);
           basketService = TestBed.get(BasketService);
@@ -52,13 +49,17 @@ import {
       expect(quickviewComponent).toBeDefined();
     });
   
-    it('should render correctly', () => {
+    it('should render closed by default', () => {
       expect(fixture).toMatchSnapshot();
     });
   
-    it('quick view should be visible', () => {
+    it('can render empty', () => {
+      quickviewComponent.toggleService.toggle(Toggable.Quickview);
+
+      expect(quickviewComponent.visible).toBeTruthy();
+
       fixture.detectChanges();
-  
+
       expect(fixture).toMatchSnapshot();
     });
   
@@ -68,68 +69,53 @@ import {
       expect(quickviewComponent.toggleService).toBe(toggleService);
     });
   
-    it('should check if quickView is visible with products', async () => {
-      const product = createProduct({price:200});
+    it('should render products when is visible', async () => {
+      const product = createProduct({price:300, size:'green', name:'kity'});
+      
       basketService.addProduct(product);
 
-      const toggleButton = fixture2.debugElement.query(By.css('#quickViewButton'));
-      toggleButton.triggerEventHandler('action', 'test');
-  
-      const visibleSubject = (toggleService.visible(Toggable.Quickview).source as BehaviorSubject<boolean>);
-      expect(visibleSubject).toBeTruthy();
+      quickviewComponent.toggleService.toggle(Toggable.Quickview);
 
-      fixture2.detectChanges();
-      expect(fixture2).toMatchSnapshot();
+      fixture.detectChanges();
+      
+      expect(basketService.products.getValue().length).toEqual(1);
+
+      expect(fixture).toMatchSnapshot();
     });
   
     it('should remove product from quickView', () => {
       const product = createProduct();
       basketService.addProduct(product);
       
-      const toggleButton = fixture2.debugElement.query(By.css('#quickViewButton'));
-      toggleButton.triggerEventHandler('action', 'test');
+      quickviewComponent.toggleService.toggle(Toggable.Quickview);
+
       fixture.detectChanges();
   
       const removeProductButton = fixture.debugElement.query(By.css('.closeIcon'));
       removeProductButton.triggerEventHandler('click', 'test');
-      fixture.detectChanges();
-
-      expect(basketComponent.basketService.get().products.getValue().length).toEqual(0);
-    });
-
-    it('should check if overlay is visible', () => {
-      const product = createProduct({price:300, size:'green', name:'kity'});
-      basketService.addProduct(product);
-      
-      const quickViewButton = fixture2.debugElement.query(By.css('#quickViewButton'));
-    
-      quickViewButton.triggerEventHandler('action', 'test');
-      fixture.detectChanges();
-  
-      const overlayButton = fixture.debugElement.query(By.css('.overlay'));
-      expect(overlayButton).toBeTruthy();
 
       fixture.detectChanges();
-      expect(fixture).toMatchSnapshot();
+
+      expect(basketService.get().products.getValue().length).toEqual(0);
     });
 
     it('should close quickView when click on overlay', () => {
       const product = createProduct();
       basketService.addProduct(product);
       
-      const quickViewButton = fixture2.debugElement.query(By.css('#quickViewButton'));
-    
-      quickViewButton.triggerEventHandler('action', 'test');
+      quickviewComponent.toggleService.toggle(Toggable.Quickview);
+
       fixture.detectChanges();
   
       const overlayButton = fixture.debugElement.query(By.css('.overlay'));
       overlayButton.triggerEventHandler('click', null);
-      fixture2.detectChanges();
  
       const quickView = (toggleService.visible(Toggable.Quickview).source as BehaviorSubject<boolean>);
+      
       expect(quickView.getValue()).toBeFalsy();
 
       fixture.detectChanges();
+      
       expect(fixture).toMatchSnapshot();
     });
   });
