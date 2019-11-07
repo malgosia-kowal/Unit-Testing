@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quickview component can render empty 1`] = `
+<app-quickview
+  basketService={[Function BasketService]}
+  products={[Function Array]}
+  toggleService={[Function ToggleService]}
+  visible={[Function Boolean]}
+>
+  <div>
+    <div
+      class="overlay"
+    />
+    <div
+      class="quickviewContainer"
+    >
+      <h4>
+        Your basket
+      </h4>
+      
+      <div>
+        No Cats in the Basket
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+</app-quickview>
+`;
+
+exports[`Quickview component should close quickView when click on overlay 1`] = `
+<app-quickview
+  basketService={[Function BasketService]}
+  products={[Function Array]}
+  toggleService={[Function ToggleService]}
+  visible="false"
+>
+  
+</app-quickview>
+`;
+
+exports[`Quickview component should render closed by default 1`] = `
+<app-quickview
+  basketService={[Function BasketService]}
+  products={[Function Array]}
+  toggleService={[Function ToggleService]}
+  visible="false"
+>
+  
+</app-quickview>
+`;
+
+exports[`Quickview component should render products when is visible 1`] = `
+<app-quickview
+  basketService={[Function BasketService]}
+  products={[Function Array]}
+  toggleService={[Function ToggleService]}
+  visible={[Function Boolean]}
+>
+  <div>
+    <div
+      class="overlay"
+    />
+    <div
+      class="quickviewContainer"
+    >
+      <h4>
+        Your basket
+      </h4>
+      
+      <div>
+        
+        <div
+          class="quickviewProduct"
+        >
+          <div>
+            <img
+              src="http://lorempixel.com/640/480"
+            />
+          </div>
+          <div>
+            <div>
+              Name: kity
+            </div>
+            <div>
+              Color: green
+            </div>
+            <div>
+              Price: 300 zl
+            </div>
+            <div>
+              Quantity: 1
+            </div>
+          </div>
+          <div
+            class="closeIcon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-quickview>
+`;
