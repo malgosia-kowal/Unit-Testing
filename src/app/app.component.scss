@@ -19,3 +19,17 @@ h1 {
   background-color: #f1f1f1f1;
   height: 100vh;
 }
+
+.flagsContainer {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  & > span {
+    width: 30px;
+    height: 23px;
+    cursor: pointer;
+    margin: 2px;
+    border: 1px solid grey;
+  }
+}
