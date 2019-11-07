@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from './product';
 import { ProductService } from '../service/product.service';
 import { BasketService } from '../service/basket.service';
@@ -9,11 +9,11 @@ import { BasketService } from '../service/basket.service';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  product: Product;
-  products: Product[];
+   product: Product;
+   products: Product[];
 
-  constructor(private productService: ProductService, private basketService: BasketService) {
-    this.productService = productService;
+   constructor(private productService: ProductService, private basketService: BasketService) {
+   this.productService = productService;
   }
 
   ngOnInit() {
