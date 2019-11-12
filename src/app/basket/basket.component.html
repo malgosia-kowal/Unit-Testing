@@ -1,6 +1,6 @@
 <div class="basketContainer">
   <div class="basketContainerDetail">
-    <div><span id="basketTotal"> Total: {{ basketService.total }} zl</span></div>
+    <div><span id="basketTotal"> Total: {{ basketService.total }} <span>{{ 'Currency' | translate }}</span></span></div>
     <div><span id="basketLength"> Cats: {{ basketService.products.value.length }}</span></div>
   </div>
   <div class="basketContainerButtons">

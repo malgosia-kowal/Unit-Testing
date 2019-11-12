@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../products/product';
 import { BehaviorSubject } from 'rxjs';
-import currencyService, { CurrencyService } from './currency.service';
-import { LocalisationService } from './localisation.service';
+import currencyService from './currency.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Locale } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ import { LocalisationService } from './localisation.service';
 export class BasketService {
   products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   total: number = 0;
-  localisationService: LocalisationService;
   constructor(
-    localisationService: LocalisationService
+    private translate: TranslateService
   ) {
-    localisationService.locale.subscribe(locale => {
-      this.total = currencyService.convert(this.total, locale);
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      const prevCurrency = this.translate.getLangs().filter(l => l !== event.lang)[0] || this.translate.getDefaultLang();
+      this.total = currencyService.convert(this.total, prevCurrency as Locale, event.lang as Locale);
     });
   }
 

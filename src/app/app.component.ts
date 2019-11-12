@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { LocalisationService, Locale } from './service/localisation.service';
+import { TranslateService } from '@ngx-translate/core';
+
+export enum Locale {
+  Pl = 'pl',
+  Gb = 'en',
+}
 
 @Component({
   selector: 'app-root',
@@ -10,11 +15,12 @@ export class AppComponent {
   title = 'Underground Cat Store (Meow)';
   locale;
 
-  constructor(public localisation: LocalisationService) {
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang(Locale.Gb);
     this.locale = Locale;
   }
 
   selectLocale(locale: Locale) {
-    this.localisation.setLocale(locale);
+    this.translate.use(locale);
   }
 }
