@@ -21,7 +21,7 @@ describe('Products Component', () => {
   let basketService: BasketService;
   let productService: MockProductsService;
 
-  beforeEach(async(async () => {
+  beforeEach(async(() => {
     jest.resetAllMocks();
     TestBed.configureTestingModule({
       declarations: [ProductsComponent, ProductDetailComponent, ButtonComponent],
@@ -57,8 +57,8 @@ describe('Products Component', () => {
   });
 
   it('can render products', () => {
-    const product1 = createProduct({ name: 'test', size: '8', image: "url", price: 8 }, )
-    const product2 = createProduct({ name: 'test2', size: '8', image: "url", price: 4 }, )
+    const product1 = createProduct({ name: 'test', size: '8', image: 'url', price: 8 });
+    const product2 = createProduct({ name: 'test2', size: '8', image: 'url', price: 4 });
     productService.getProducts.mockImplementation(() => [product1, product2]);
 
     component.ngOnInit();
@@ -71,7 +71,7 @@ describe('Products Component', () => {
   });
 
   it('add products to the basket', () => {
-    const product1 = createProduct({ name: 'test2', size: '8', image: "url", price: 4 });
+    const product1 = createProduct({ name: 'test2', size: '8', image: 'url', price: 4 });
     productService.getProducts.mockImplementation(() => [product1]);
 
     component.ngOnInit();
@@ -82,19 +82,18 @@ describe('Products Component', () => {
     fixture.detectChanges();
 
     expect(basketService.get().products.getValue().length).toEqual(1);
-
-    fixture.detectChanges();
-    expect(fixture).toMatchSnapshot();
   });
 
   it('can select product', () => {
-    const product1 = createProduct({ name: 'test2', size: '8', image: "url", price: 4 });
-    const product2 = createProduct({ name: 'test3', size: '8', image: "url", price: 9 });
+    const product1 = createProduct({ name: 'test2', size: '8', image: 'url', price: 4 });
+    const product2 = createProduct({ name: 'test3', size: '8', image: 'url', price: 9 });
     productService.getProducts.mockImplementation(() => [product1, product2]);
 
     component.ngOnInit();
 
     fixture.detectChanges();
+
+    expect(component.product).toBeUndefined();
 
     component.onSelect(product1);
 
@@ -102,27 +101,10 @@ describe('Products Component', () => {
 
     expect(fixture).toMatchSnapshot();
     
-    const test = fixture.debugElement.query(By.css('app-product-detail')).componentInstance;
+    const ProductDetailComponent = fixture.debugElement.query(By.css('app-product-detail')).componentInstance;
 
-    expect(test).toMatchObject({product: product1});
+    expect(component.product).toEqual(product1);
+    expect(ProductDetailComponent).toMatchObject({ product: product1 });
   });
-
-  it('has no selected product at the start', () => {
-    const product1 = createProduct({ name: 'test2', size: '8', image: "url", price: 4 });
-    const product2 = createProduct({ name: 'test3', size: '8', image: "url", price: 9 });
-
-    productService.getProducts.mockImplementation(() => [product1, product2]);
-
-    component.ngOnInit();
-
-    fixture.detectChanges();
-
-    expect(fixture).toMatchSnapshot();
-    
-    const test = fixture.debugElement.query(By.css('app-product-detail')).componentInstance;
-    
-    expect(test).toBeUndefined;
-  });
-   
 });
   
