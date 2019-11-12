@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../products/product';
 import { BehaviorSubject } from 'rxjs';
-import { CurrencyService } from './currency.service';
+import currencyService, { CurrencyService } from './currency.service';
+import { LocalisationService } from './localisation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,13 @@ import { CurrencyService } from './currency.service';
 export class BasketService {
   products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   total: number = 0;
-  currencyService: CurrencyService;
-  constructor(currencyService: CurrencyService) {
-    this.currencyService = currencyService;
-    currencyService.convert(this.total).subscribe(price => console.log(price));
+  localisationService: LocalisationService;
+  constructor(
+    localisationService: LocalisationService
+  ) {
+    localisationService.locale.subscribe(locale => {
+      this.total = currencyService.convert(this.total, locale);
+    });
   }
 
   get() {

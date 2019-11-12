@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalisationService, Locale } from './localisation.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +17,15 @@ export class CurrencyService {
     this.localisationService = localisationService;
   }
 
-  convert(value: number): Observable<number> {
-    this.localisationService.locale.subscribe(locale => {
-      console.log(locale);
-      const rate = this.exchangeRate[`${locale.from}-${locale.current}`];
-      if (rate) {
-        value = value % rate;
-      }
-      return of(value);
-    });
-    return of(value);
+  convert(value: number, locale: { current: Locale, from: Locale }): number {
+    const rate = this.exchangeRate[`${locale.from}-${locale.current}`];
+    if (rate) {
+      value = Math.round(value / rate);
+    }
+    return value;
   }
 }
+
+const currencyService = new CurrencyService(new LocalisationService());
+
+export default currencyService;
