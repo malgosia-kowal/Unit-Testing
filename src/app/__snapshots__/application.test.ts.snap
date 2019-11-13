@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component should take a snapchot 1`] = `
+<app-root
+  title={[Function String]}
+>
+  <div
+    class="header"
+  >
+    <h1>
+       Underground Cat Store (Meow) 
+    </h1>
+  </div><div
+    class="container"
+  >
+    <app-products>
+      <h2>
+        Products
+      </h2>
+      <app-product-detail>
+        
+      </app-product-detail>
+      <div
+        class="productsContainer"
+      >
+        
+        <div
+          class="productCard"
+        >
+          <img
+            src="http://placekitten.com/250/300"
+          />
+          <h3>
+            Pushkin
+          </h3>
+          <hr />
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Color: 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              red
+            </span>
+          </div>
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Price 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              123
+            </span>
+             zl 
+          </div>
+          <hr />
+          <div
+            class="productCardFooter"
+          >
+            <app-button
+              id="addToBasketButton-0"
+              ng-reflect-text="Add to basket"
+              text="Add to basket"
+            >
+              <button>
+                 Add to basket
+  
+              </button>
+            </app-button>
+          </div>
+        </div>
+        <div
+          class="productCard"
+        >
+          <img
+            src="http://placekitten.com/250/300"
+          />
+          <h3>
+            Pushkin
+          </h3>
+          <hr />
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Color: 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              grey
+            </span>
+          </div>
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Price 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              123
+            </span>
+             zl 
+          </div>
+          <hr />
+          <div
+            class="productCardFooter"
+          >
+            <app-button
+              id="addToBasketButton-1"
+              ng-reflect-text="Add to basket"
+              text="Add to basket"
+            >
+              <button>
+                 Add to basket
+  
+              </button>
+            </app-button>
+          </div>
+        </div>
+        <div
+          class="productCard"
+        >
+          <img
+            src="http://placekitten.com/250/300"
+          />
+          <h3>
+            Cuddle
+          </h3>
+          <hr />
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Color: 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              pink
+            </span>
+          </div>
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Price 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              123
+            </span>
+             zl 
+          </div>
+          <hr />
+          <div
+            class="productCardFooter"
+          >
+            <app-button
+              id="addToBasketButton-2"
+              ng-reflect-text="Add to basket"
+              text="Add to basket"
+            >
+              <button>
+                 Add to basket
+  
+              </button>
+            </app-button>
+          </div>
+        </div>
+        <div
+          class="productCard"
+        >
+          <img
+            src="http://placekitten.com/250/300"
+          />
+          <h3>
+            Charles
+          </h3>
+          <hr />
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Color: 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              ginger
+            </span>
+          </div>
+          <div>
+            <span
+              class="productCardPropHeader"
+            >
+              Price 
+            </span>
+            <span
+              class="productCardPropValue"
+            >
+              123
+            </span>
+             zl 
+          </div>
+          <hr />
+          <div
+            class="productCardFooter"
+          >
+            <app-button
+              id="addToBasketButton-3"
+              ng-reflect-text="Add to basket"
+              text="Add to basket"
+            >
+              <button>
+                 Add to basket
+  
+              </button>
+            </app-button>
+          </div>
+        </div>
+      </div>
+    </app-products>
+    <app-quickview>
+      
+    </app-quickview>
+    <app-basket>
+      <div
+        class="basketContainer"
+      >
+        <div
+          class="basketContainerDetail"
+        >
+          <div>
+            <span
+              id="basketTotal"
+            >
+               Total: 0 zl
+            </span>
+          </div>
+          <div>
+            <span
+              id="basketLength"
+            >
+               Cats: 0
+            </span>
+          </div>
+        </div>
+        <div
+          class="basketContainerButtons"
+        >
+          <app-button
+            id="clearTheBasketButton"
+            ng-reflect-text="Clean"
+            text="Clean"
+          >
+            <button>
+               Clean
+  
+            </button>
+          </app-button>
+          <app-button
+            id="quickViewButton"
+            ng-reflect-text="Quick view"
+            text="Quick view"
+          >
+            <button>
+               Quick view
+  
+            </button>
+          </app-button>
+        </div>
+      </div>
+    </app-basket>
+  </div>
+</app-root>
+`;
