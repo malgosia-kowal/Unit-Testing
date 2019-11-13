@@ -10,12 +10,12 @@ export class CurrencyService {
     [`${Locale.Gb}-${Locale.Pl}`]: 0.20,
   };
 
-  convert(value: number, from: Locale, to: Locale): number {
+  convert(value: number, from: Locale, to: Locale): Promise<number> {
     const rate = this.exchangeRate[`${from}-${to}`];
     if (rate) {
       value = Math.round(value / rate);
     }
-    return value;
+    return new Promise(resolve => setTimeout(() => resolve(value), 750));
   }
 }
 

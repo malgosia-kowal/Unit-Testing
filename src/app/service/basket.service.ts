@@ -10,13 +10,15 @@ import { Locale } from '../app.component';
 })
 export class BasketService {
   products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
-  total: number = 0;
+  total = 0;
   constructor(
     private translate: TranslateService
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       const prevCurrency = this.translate.getLangs().filter(l => l !== event.lang)[0] || this.translate.getDefaultLang();
-      this.total = currencyService.convert(this.total, prevCurrency as Locale, event.lang as Locale);
+      currencyService.convert(this.total, prevCurrency as Locale, event.lang as Locale).then(amount => {
+        this.total = amount;
+      });
     });
   }
 
