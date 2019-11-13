@@ -13,7 +13,6 @@ import { BasketComponent } from './basket/basket.component';
 import { ButtonComponent } from './button/button.component';
 import { QuickviewComponent } from './quickview/quickview.component';
 
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
