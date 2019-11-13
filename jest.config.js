@@ -10,6 +10,8 @@ module.exports = {
   coverageDirectory: '<rootDir>/testing/coverage',
   collectCoverageFrom: [
     'src/app/**/*.ts',
+    '!src/app/app-routing.module.ts',
+    '!src/app/app.module.ts',
   ],
   transformIgnorePatterns: [
     "node_modules/(?!@ngrx)"
