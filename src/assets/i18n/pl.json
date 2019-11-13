@@ -1,4 +1,23 @@
 {
   "Title": "Nielegalny sklep kotow (Meow)",
-  "Currency": "zl"
+  "Currency": "zl",
+  "Basket": {
+    "Total": "Suma: {{ total }} zl",
+    "Items": "Koty: {{ amount }}",
+    "Clean": "Wyczysc",
+    "QuickView": "Podglad"
+  },
+  "QuickView": {
+    "Header": "Twoj koszyk",
+    "Empty": "Nie masz kotow w koszyku",
+    "Name": "Nazwa: {{ name }}",
+    "Quantity": "Ilosc: {{ quantity }}",
+    "Price": "Cena: {{ price }}",
+    "Color": "Kolor: {{ size }}"
+  },
+  "ProductCard": {
+    "Color": "Kolor: ",
+    "Price": "Cena: ",
+    "Add": "Dodaj do koszyka"
+  }
 }
