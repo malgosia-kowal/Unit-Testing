@@ -9,21 +9,32 @@ import { ButtonComponent } from '../button/button.component';
 import { BasketService } from '../service/basket.service';
 import { ToggleService, Toggable } from '../service/toggle.service';
 import { createProduct } from '../factory/Product';
-import { tap, map } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, Observable } from 'rxjs';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { Locale } from '../app.component';
+
+class CustomLoader implements TranslateLoader {
+  getTranslation(lang: string): Observable<any> {
+    return of(require('../../assets/i18n/en.json'));
+  }
+}
 
 describe('BasketComponent', () => {
   let component: BasketComponent;
   let fixture: ComponentFixture<BasketComponent>;
   let toggleService: ToggleService;
   let basketService: BasketService;
+  let translate: TranslateService;
 
   beforeEach(async(async () => {
     TestBed.configureTestingModule({
       declarations: [BasketComponent, ButtonComponent],
+      imports: [TranslateModule.forRoot({
+        loader: { provide: TranslateLoader, useClass: CustomLoader }
+      })],
       providers: [
         { provide: ToggleService, useClass: ToggleService },
-        { provide: BasketService, useClass: BasketService }
+        { provide: BasketService, useClass: BasketService },
       ]
     })
       .compileComponents()
@@ -33,6 +44,8 @@ describe('BasketComponent', () => {
 
         toggleService = TestBed.get(ToggleService);
         basketService = TestBed.get(BasketService);
+        translate = TestBed.get(TranslateService);
+        translate.use(Locale.Gb);
 
         fixture.detectChanges();
       });

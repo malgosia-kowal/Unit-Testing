@@ -14,15 +14,19 @@ exports[`BasketComponent should render correctly 1`] = `
       <div>
         <span
           id="basketTotal"
+          ng-reflect-translate="Basket.Total"
+          ng-reflect-translate-params="[object Object]"
         >
-           Total: 0 zl
+          Total: 0 gbp
         </span>
       </div>
       <div>
         <span
           id="basketLength"
+          ng-reflect-translate="Basket.Items"
+          ng-reflect-translate-params="[object Object]"
         >
-           Cats: 0
+          Cats: 0
         </span>
       </div>
     </div>
@@ -32,7 +36,6 @@ exports[`BasketComponent should render correctly 1`] = `
       <app-button
         id="clearTheBasketButton"
         ng-reflect-text="Clean"
-        text="Clean"
       >
         <button>
            Clean
@@ -42,7 +45,6 @@ exports[`BasketComponent should render correctly 1`] = `
       <app-button
         id="quickViewButton"
         ng-reflect-text="Quick view"
-        text="Quick view"
       >
         <button>
            Quick view
@@ -68,15 +70,19 @@ exports[`BasketComponent should render correctly with cat in the basket 1`] = `
       <div>
         <span
           id="basketTotal"
+          ng-reflect-translate="Basket.Total"
+          ng-reflect-translate-params="[object Object]"
         >
-           Total: 320 zl
+          Total: 320 gbp
         </span>
       </div>
       <div>
         <span
           id="basketLength"
+          ng-reflect-translate="Basket.Items"
+          ng-reflect-translate-params="[object Object]"
         >
-           Cats: 1
+          Cats: 1
         </span>
       </div>
     </div>
@@ -86,7 +92,6 @@ exports[`BasketComponent should render correctly with cat in the basket 1`] = `
       <app-button
         id="clearTheBasketButton"
         ng-reflect-text="Clean"
-        text="Clean"
       >
         <button>
            Clean
@@ -96,7 +101,6 @@ exports[`BasketComponent should render correctly with cat in the basket 1`] = `
       <app-button
         id="quickViewButton"
         ng-reflect-text="Quick view"
-        text="Quick view"
       >
         <button>
            Quick view
