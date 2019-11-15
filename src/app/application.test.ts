@@ -40,10 +40,13 @@
       expect(component.title).toContain('Underground Cat Store (Meow)');
     });
 
-    it('contains other component tags inside', () => {
-      const appComponentDetail = fixture.debugElement.query(By.css('.container'));
-        
-      expect(appComponentDetail).not.toBe(null);
-    });  
+    it('contains other nested component with the correct order', () => {
+      const appProductsComponent = fixture.debugElement.query(By.css('.container')).children[0].name;
+      const QuickviewComponent = fixture.debugElement.query(By.css('.container')).children[1].name;
+      const BasketComponent = fixture.debugElement.query(By.css('.container')).children[2].name;
 
+      expect(appProductsComponent).toContain('app-products');
+      expect(QuickviewComponent).toContain('app-quickview');
+      expect(BasketComponent).toContain('app-basket');
+    });  
   });
