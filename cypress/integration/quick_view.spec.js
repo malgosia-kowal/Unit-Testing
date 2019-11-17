@@ -1,63 +1,45 @@
+import {clickOnTheButton, visitPage, checkcomponents,checkBasketTotal, checkBasketLength} from '../pageObjects/products_page_object';
+import * as Element from '../pageObjects/constElements';
+import {openQuickView, checkProductsVisible, removeProductsFromQuickView, checkSameProductsInQuickview} from '../pageObjects/quick_view_pageObjects';
+
 describe('Quick View', () => {
 
     it('should visit the product page', () => {
-      cy.visit('http://localhost:4200/');
-        
-      cy.get('app-products')
-        .should('exist');
-      cy.get('app-quickview')
-        .should('exist');
-      cy.get('app-basket')
-        .should('exist');
+      visitPage();
+      checkcomponents();
     });
 
     it('should check if product is visible in quickview', () => {
-      cy.get('[id="addToBasketButton-1"]')
-        .click(); 
-      cy.get('[id="quickViewButton"]')
-        .click();
+      clickOnTheButton(Element.buttonOne);
+      openQuickView();
         
-      cy.get('.quickviewProduct')
-        .should('have.length', '1');  
+      checkProductsVisible(Element.valueOne);
     });
       
     it('should check if product can be removed from quickview', () => {
-      cy.get('.quickviewProduct')
-        .find('.closeIcon')
-        .click();
+      removeProductsFromQuickView();
             
-      cy.get('quickviewProduct')
-        .should('have.length', '0');  
-      cy.get('[id="basketTotal"]')
-        .should('contain', '0');
-      cy.get('[id="basketLength"]')
-        .should('contain', '0');
+      checkProductsVisible(Element.valueZero);
+      checkBasketTotal(Element.contain, Element.valueZero);
+      checkBasketLength(Element.contain, Element.valueZero);
       
-      cy.get('[id="quickViewButton"]')
-        .click();
+      openQuickView();
     });
       
     it('should check if the same products can be added to quickview', () => {
-      cy.get('[id="addToBasketButton-0"]')
-        .click(); 
-      cy.get('[id="addToBasketButton-0"]')
-        .click();   
-      cy.get('[id="quickViewButton"]')
-        .click();      
+      clickOnTheButton(Element.buttonOne);
+      clickOnTheButton(Element.buttonOne);
+
+      openQuickView();     
       
-      cy.get('.quickviewContainer')
-        .find('.quickviewProduct')
-        .should('have.length','1'); 
-      
-      cy.get('[id="quickViewButton"]')
-        .click();    
+      checkSameProductsInQuickview();
+      openQuickView();  
     });
       
     it('should check if many different products can be added to quickview', () => {
-      cy.get('[id="addToBasketButton-0"]')
-        .click();
-      cy.get('[id="addToBasketButton-1"]')
-        .click();  
+      clickOnTheButton(Element.buttonOne);
+      clickOnTheButton(Element.buttonOnProductTwo);
+      clickOnTheButton(Element.buttonOnProductThree); 
       cy.get('[id="addToBasketButton-2"]')
         .click();      
       cy.get('[id="quickViewButton"]')
