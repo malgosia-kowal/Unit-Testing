@@ -1,17 +1,24 @@
 import 'jest';
 import { BasketService } from './basket.service';
 import { createProduct } from '../factory/Product';
+import { TranslateService } from '@ngx-translate/core';
+import { CurrencyService } from './currency.service';
 
+class Mock {
+  getLangs = jest.fn(() => []);
+}
 
-const basket = new BasketService();
+const basket = new BasketService(new Mock() as any);
+
 
 describe('Basket', () => {
+
 
   beforeEach(() => {
     basket.clear();
   });
 
-  it('should check if basket is empty at the start', () => {
+  it('should check if basket is empty at the start', async () => {
     expect(basket.get().products.getValue().length).toEqual(0);
     expect(basket.get().total).toEqual(0);
   });
