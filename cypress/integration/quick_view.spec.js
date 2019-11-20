@@ -1,17 +1,18 @@
-import {clickOnTheButton, visitPage, checkcomponents,checkBasketTotal, checkBasketLength} from '../pageObjects/products_page_object';
+import {addProduct, visitPage, checkcomponents,checkBasketTotal, checkBasketLength, cleanTheBasket} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
-import {openQuickView, checkProductsVisible, removeProductsFromQuickView, checkSameProductsInQuickview} from '../pageObjects/quick_view_pageObjects';
+import {toogleQuickView, checkProductsVisible, removeProductsFromQuickView, checkSameProductsInQuickview, clickOnOverlay, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
 describe('Quick View', () => {
 
     it('should visit the product page', () => {
       visitPage();
+      
       checkcomponents();
     });
 
     it('should check if product is visible in quickview', () => {
-      clickOnTheButton(Element.buttonOne);
-      openQuickView();
+      addProduct(Element.productOne);
+      toogleQuickView();
         
       checkProductsVisible(Element.valueOne);
     });
@@ -23,48 +24,39 @@ describe('Quick View', () => {
       checkBasketTotal(Element.contain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueZero);
       
-      openQuickView();
+      toogleQuickView();
     });
       
     it('should check if the same products can be added to quickview', () => {
-      clickOnTheButton(Element.buttonOne);
-      clickOnTheButton(Element.buttonOne);
+      addProduct(Element.productOne);
+      addProduct(Element.productOne );
 
-      openQuickView();     
+      toogleQuickView();     
       
       checkSameProductsInQuickview();
-      openQuickView();  
+      toogleQuickView();  
     });
       
     it('should check if many different products can be added to quickview', () => {
-      clickOnTheButton(Element.buttonOne);
-      clickOnTheButton(Element.buttonOnProductTwo);
-      clickOnTheButton(Element.buttonOnProductThree); 
-      cy.get('[id="addToBasketButton-2"]')
-        .click();      
-      cy.get('[id="quickViewButton"]')
-        .click();    
+      addProduct(Element.productOne);
+      addProduct(Element.productTwo);
+      addProduct(Element.productThree); 
+      addProduct(Element.productTwo);  
+      toogleQuickView(); 
       
-      cy.get('.quickviewContainer')
-        .find('.quickviewProduct')
-        .should('have.length', '3');  
+      checkProductsVisible(Element.valueThree);
     });
     
     it('should clean all products in the quick view', () => {
-      cy.get('[id="clearTheBasketButton"]')
-        .click();
+      cleanTheBasket();
         
-      cy.get('.quickviewContainer')
-        .find('.quickviewProduct')
-        .should('have.length', '0');  
+      checkProductsVisible(Element.valueZero);
     });
 
     it('should close quickView when user clicks outside of it', () => {
-      cy.get('.overlay')
-        .click();
+      clickOnOverlay();
 
-      cy.get('.quickviewContainer')
-        .should('not.be.visible');  
+      quickViewIsNotVisible();  
     });
 
 });

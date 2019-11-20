@@ -1,6 +1,6 @@
-import {clickOnTheButton, visitPage, checkcomponents, checkBasketTotal, checkBasketLength, cleanTheBasket} from '../pageObjects/products_page_object';
+import {addProduct, visitPage, checkcomponents, checkBasketTotal, checkBasketLength, cleanTheBasket} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
-import {openQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
+import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
 
 describe('Products Page', () => {
@@ -12,25 +12,25 @@ describe('Products Page', () => {
     });
   
     it('should add product to the basket', () => {
-      clickOnTheButton(Element.buttonOne);
+      addProduct(Element.productOne);
 
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
     }); 
 
     it('should add the same products to the basket', () => {
-      clickOnTheButton(Element.buttonOne);
-      clickOnTheButton(Element.buttonOne);
+      addProduct(Element.productOne);
+      addProduct(Element.productOne);
   
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
     }); 
   
     it('should add two different products to the basket', () => {
-      clickOnTheButton(Element.buttonOne);
-      clickOnTheButton(Element.buttonOnProductTwo);
+      addProduct(Element.productOne);
+      addProduct(Element.productTwo);
 
-      checkBasketTotal(Element.notContain), Element.valueZero;
+      checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueTwo);
     }); 
 
@@ -42,13 +42,13 @@ describe('Products Page', () => {
     });
   
     it('should open quickView', () => {
-      openQuickView();
+      toogleQuickView();
   
       quickViewIsVisible();
     });
       
     it('should close quickView', () => {
-      openQuickView();
+      toogleQuickView();
   
       quickViewIsNotVisible();
     }); 

@@ -1,9 +1,8 @@
 const visitPage = () => {
-
     cy.visit('http://localhost:4200/')
-
 }
-const clickOnTheButton = (buttonId) => {
+
+const addProduct = (buttonId) => {
     cy.get(`[id=${buttonId}]`)
       .click();
 }
@@ -26,17 +25,14 @@ const checkBasketLength = (contain, value) => {
     cy.get('[id="basketLength"]')
       .should(`${contain}`, `${value}`);
 }
+
 const cleanTheBasket = () => {
     cy.get('[id="clearTheBasketButton"]')
       .click();
 }
 
-
-
-    
-
-module.exports = {clickOnTheButton, visitPage,
+module.exports = {addProduct, visitPage,
                   checkcomponents, checkBasketTotal,
                   checkBasketLength, cleanTheBasket,
-                  };
+                 };
 
