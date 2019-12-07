@@ -1,24 +1,50 @@
 import 'jest';
 import { BasketService } from './basket.service';
 import { createProduct } from '../factory/Product';
-import { TranslateService } from '@ngx-translate/core';
-import { CurrencyService } from './currency.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+//import { CurrencyService } from './currency.service';
+import { of } from 'rxjs';
+import {Locale} from '../app.component';
+import { EventEmitter } from '@angular/core';
+
+
+// emitter
+
+// subscriber | listeners
+// .... ? pl => 
+
+// emit -> wsysylam cos! -> pl
 
 class Mock {
-  getLangs = jest.fn(() => []);
+  private emitter: EventEmitter<LangChangeEvent>;
+  public onLangChange: EventEmitter<LangChangeEvent>;
+  constructor() {
+    this.emitter = new EventEmitter();
+    this.onLangChange = this.emitter;
+  }
+
+  use(lang: string): void {
+    this.emitter.emit({ lang, translations: null});
+  }
+  getDefaultLang = jest.fn(() => Locale.Pl)
+  getLangs = jest.fn(() => [Locale.Pl])
+  convert = jest.fn(() => [Locale.Gb])
+
 }
 
-const basket = new BasketService(new Mock() as any);
+const mockTranslate = new Mock();
 
+const basket = new BasketService(mockTranslate as any);
 
-describe('Basket', () => {
+describe('Basket', () =>  {
 
 
   beforeEach(() => {
     basket.clear();
+    
   });
 
-  it('should check if basket is empty at the start', async () => {
+  it('should check if basket is empty at the start', () => {
     expect(basket.get().products.getValue().length).toEqual(0);
     expect(basket.get().total).toEqual(0);
   });
@@ -147,6 +173,57 @@ describe('Basket', () => {
 
     expect(basket.get().products.getValue().length).toEqual(0);
     expect(basket.get().total).toEqual(0);
+  });
+  it('can convert to different currency', async () => {
+    const product = createProduct({price: 150});
+    basket.addProduct(product);
+    expect(basket.get().total).toEqual(150);
+    
+    // We want to change it to en
+    mockTranslate.use(Locale.Gb);
+   
+
+    // Promise
+    // async / await !!!
+
+    // delay here?
+    // 1s
+    // this is wrong
+    // Are we writing integration or unit test ??
+    console.log('1');
+    await new Promise(resolve => setTimeout(() => resolve(), 1000));
+    console.log('2');
+
+    // 0.76s
+    // 0.75s
+    expect(basket.get().total).toEqual(30)
+    // we want to convert monie!
+    
+
+    //expect(get().products.getValue().length).toEqual(0);
+    //expect(basket.get().total).toEqual(0);
+  });
+  it('should change locale from gb to pl', async() => {
+ 
+   
+    mockTranslate.use(Locale.Gb)
+   
+    await new Promise(resolve => setTimeout(() => resolve(), 1000));
+
+    //await new Promise(resolve => setTimeout(() => resolve(), 10000));
+  
+    
+    const product = createProduct({price: 100});
+    console.log(product)
+    basket.addProduct(product);
+
+ 
+    mockTranslate.use(Locale.Gb)
+
+    await new Promise(resolve => setTimeout(() => resolve(), 1000));
+
+    
+    expect(basket.get().total).toEqual(494);
   });
 
 });

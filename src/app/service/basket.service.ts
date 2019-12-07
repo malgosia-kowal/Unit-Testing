@@ -15,8 +15,12 @@ export class BasketService {
     private translate: TranslateService
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      console.log(event);
       const prevCurrency = this.translate.getLangs().filter(l => l !== event.lang)[0] || this.translate.getDefaultLang();
+      console.log(prevCurrency);
+
       currencyService.convert(this.total, prevCurrency as Locale, event.lang as Locale).then(amount => {
+        console.log(amount);
         this.total = amount;
       });
     });
