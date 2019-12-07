@@ -1,4 +1,4 @@
-import {addProduct, visitPage, checkcomponents,checkBasketTotal, checkBasketLength, cleanTheBasket} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents,checkBasketTotal, checkBasketLength} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, checkProductsVisible, removeProductsFromQuickView, checkSameProductsInQuickview, clickOnOverlay, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
@@ -7,11 +7,11 @@ describe('Quick View', () => {
     it('should visit the product page', () => {
       visitPage();
       
-      checkcomponents();
+      checkComponents();
     });
 
     it('should check if product is visible in quickview', () => {
-      addProduct(Element.productOne);
+      clickById(Element.productOne);
       toogleQuickView();
         
       checkProductsVisible(Element.valueOne);
@@ -28,8 +28,8 @@ describe('Quick View', () => {
     });
       
     it('should check if the same products can be added to quickview', () => {
-      addProduct(Element.productOne);
-      addProduct(Element.productOne );
+      clickById(Element.productOne);
+      clickById(Element.productOne );
 
       toogleQuickView();     
       
@@ -38,17 +38,17 @@ describe('Quick View', () => {
     });
       
     it('should check if many different products can be added to quickview', () => {
-      addProduct(Element.productOne);
-      addProduct(Element.productTwo);
-      addProduct(Element.productThree); 
-      addProduct(Element.productTwo);  
+      clickById(Element.productOne);
+      clickById(Element.productTwo);
+      clickById(Element.productThree); 
+      clickById(Element.productTwo);  
       toogleQuickView(); 
       
       checkProductsVisible(Element.valueThree);
     });
     
     it('should clean all products in the quick view', () => {
-      cleanTheBasket();
+      clickById(Element.cleanButton)
         
       checkProductsVisible(Element.valueZero);
     });

@@ -1,41 +1,41 @@
-import {addProduct, visitPage, checkcomponents, checkBasketTotal, checkBasketLength, cleanTheBasket} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
 
-describe('Products Page', () => {
+describe('productsPage', () => {
   
     it('should visit the product page', () => {
       visitPage();
       
-      checkcomponents();
+      checkComponents();
     });
   
     it('should add product to the basket', () => {
-      addProduct(Element.productOne);
+      clickById(Element.productOne);
 
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
     }); 
 
     it('should add the same products to the basket', () => {
-      addProduct(Element.productOne);
-      addProduct(Element.productOne);
+      clickById(Element.productOne);
+      clickById(Element.productOne);
   
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
     }); 
   
     it('should add two different products to the basket', () => {
-      addProduct(Element.productOne);
-      addProduct(Element.productTwo);
+      clickById(Element.productOne);
+      clickById(Element.productTwo);
 
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueTwo);
     }); 
 
     it('should clean the basket', () => {
-      cleanTheBasket();
+      clickById(Element.cleanButton)
   
       checkBasketTotal(Element.contain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueZero);

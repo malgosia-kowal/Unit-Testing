@@ -2,12 +2,12 @@ const visitPage = () => {
     cy.visit('http://localhost:4200/')
 }
 
-const addProduct = (buttonId) => {
+const clickById = (buttonId) => {
     cy.get(`[id=${buttonId}]`)
       .click();
 }
 
-const checkcomponents= () => {
+const checkComponents= () => {
     cy.get('app-products')
       .should('exist');
     cy.get('app-quickview')
@@ -26,13 +26,10 @@ const checkBasketLength = (contain, value) => {
       .should(`${contain}`, `${value}`);
 }
 
-const cleanTheBasket = () => {
-    cy.get('[id="clearTheBasketButton"]')
-      .click();
-}
 
-module.exports = {addProduct, visitPage,
-                  checkcomponents, checkBasketTotal,
-                  checkBasketLength, cleanTheBasket,
+
+module.exports = {clickById, visitPage,
+                  checkComponents, checkBasketTotal,
+                  checkBasketLength
                  };
 

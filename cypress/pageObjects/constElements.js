@@ -9,5 +9,6 @@ valueOne: '1',
 valueZero: '0',
 contain: 'contain',
 notContain: 'not.contain',
+cleanButton: 'clearTheBasketButton'
 
 }
