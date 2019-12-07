@@ -1,74 +1,56 @@
-describe('Products Page', () => {
+import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength} from '../pageObjects/products_page_object';
+import * as Element from '../pageObjects/constElements';
+import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
-    it('should visit the product page', () => {
-      cy.visit('http://localhost:4200/');
+
+describe('productsPage', () => {
   
-      cy.get('app-products')
-        .should('exist');
-      cy.get('app-quickview')
-        .should('exist');
-      cy.get('app-basket')
-        .should('exist');
+    it('should visit the product page', () => {
+      visitPage();
+      
+      checkComponents();
     });
   
     it('should add product to the basket', () => {
-      cy.get('[id="addToBasketButton-0"]')
-        .click();
-    
-      cy.get('[id="basketTotal"]')
-        .should('not.contain', '0');
-      cy.get('[id="basketLength"]')
-        .should('contain', '1');
+      clickById(Element.productOne);
+
+      checkBasketTotal(Element.notContain, Element.valueZero);
+      checkBasketLength(Element.contain, Element.valueOne);
     }); 
 
     it('should add the same products to the basket', () => {
-      cy.get('[id="addToBasketButton-0"]')
-        .click();
-      cy.get('[id="addToBasketButton-0"]')
-        .click();
+      clickById(Element.productOne);
+      clickById(Element.productOne);
   
-      cy.get('[id="basketTotal"]')
-        .should('not.contain', '0');
-      cy.get('[id="basketLength"]')
-        .should('contain', '1');
+      checkBasketTotal(Element.notContain, Element.valueZero);
+      checkBasketLength(Element.contain, Element.valueOne);
     }); 
   
     it('should add two different products to the basket', () => {
-      cy.get('[id="addToBasketButton-0"]')
-        .click();
-      cy.get('[id="addToBasketButton-1"]')
-        .click();
-  
-      cy.get('[id="basketTotal"]')
-        .should('not.contain', '0');
-      cy.get('[id="basketLength"]') 
-        .should('contain','2'); 
+      clickById(Element.productOne);
+      clickById(Element.productTwo);
+
+      checkBasketTotal(Element.notContain, Element.valueZero);
+      checkBasketLength(Element.contain, Element.valueTwo);
     }); 
 
     it('should clean the basket', () => {
-      cy.get('[id="clearTheBasketButton"]')
-        .click();
+      clickById(Element.cleanButton)
   
-      cy.get('[id="basketTotal"]')
-        .should('contain', '0');
-      cy.get('[id="basketLength"]')
-        .should('contain', '0');
+      checkBasketTotal(Element.contain, Element.valueZero);
+      checkBasketLength(Element.contain, Element.valueZero);
     });
   
     it('should open quickView', () => {
-      cy.get('[id="quickViewButton"]')
-        .click();
+      toogleQuickView();
   
-      cy.get('.quickviewContainer')
-        .should('be.visible');
+      quickViewIsVisible();
     });
       
     it('should close quickView', () => {
-      cy.get('[id="quickViewButton"]')
-        .click();
+      toogleQuickView();
   
-      cy.get('.quickviewContainer')
-        .should('not.be.visible');  
+      quickViewIsNotVisible();
     }); 
 
 });
