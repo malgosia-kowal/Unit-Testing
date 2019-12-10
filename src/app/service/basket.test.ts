@@ -203,27 +203,24 @@ describe('Basket', () =>  {
     //expect(get().products.getValue().length).toEqual(0);
     //expect(basket.get().total).toEqual(0);
   });
-  it('should change locale from gb to pl', async() => {
+
+  it('should convert price of the product from GB to PL', async() => {
  
-   
-    mockTranslate.use(Locale.Gb)
-   
+    mockTranslate.getDefaultLang = jest.fn(() => Locale.Gb)
     await new Promise(resolve => setTimeout(() => resolve(), 1000));
 
-    //await new Promise(resolve => setTimeout(() => resolve(), 10000));
-  
-    
     const product = createProduct({price: 100});
-    console.log(product)
     basket.addProduct(product);
 
- 
-    mockTranslate.use(Locale.Gb)
-
+    mockTranslate.use(Locale.Pl);
     await new Promise(resolve => setTimeout(() => resolve(), 1000));
 
-    
     expect(basket.get().total).toEqual(494);
-  });
+    
+    mockTranslate.use(Locale.Gb)
+    await new Promise(resolve => setTimeout(() => resolve(), 1000));
 
+    expect(basket.get().total).toEqual(100);
+  });
+  
 });
