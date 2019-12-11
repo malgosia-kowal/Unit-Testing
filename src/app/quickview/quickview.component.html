@@ -12,7 +12,11 @@
           <div>{{ "QuickView.Name" | translate: product }}</div>
           <div>{{ "QuickView.Color" | translate: product }}</div>
           <div>
-            {{ "QuickView.Price" | translate: product }}
+            <span
+              [translate]="'QuickView.Price'"
+              [translateParams]="{ price: product.price | money }"
+            >
+            </span>
             {{ "Currency" | translate }}
           </div>
           <div>{{ "QuickView.Quantity" | translate: product }}</div>

@@ -1,23 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from './product';
-import { ProductService } from '../service/product.service';
-import { BasketService } from '../service/basket.service';
+import { Component, OnInit } from "@angular/core";
+import { Product } from "./product";
+import { ProductService } from "../service/product.service";
+import { BasketService } from "../service/basket.service";
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  selector: "app-products",
+  templateUrl: "./products.component.html",
+  styleUrls: ["./products.component.scss"]
 })
 export class ProductsComponent implements OnInit {
   product: Product;
   products: Product[];
 
-  constructor(private productService: ProductService, private basketService: BasketService) {
+  constructor(
+    private productService: ProductService,
+    private basketService: BasketService
+  ) {
     this.productService = productService;
   }
 
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    this.productService
+      .getProducts()
+      .subscribe(products => (this.products = products));
   }
 
   onSelect(product: Product) {
