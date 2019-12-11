@@ -1,21 +1,26 @@
 <div *ngIf="visible">
-  <div (click)="toggle()" class="overlay">
-  </div>
+  <div (click)="toggle()" class="overlay"></div>
   <div class="quickviewContainer">
-    <h4>{{ 'QuickView.Header' | translate }}</h4>
-    <div *ngIf="!products.length">{{ 'QuickView.Empty' | translate }}</div>
+    <h4>{{ "QuickView.Header" | translate }}</h4>
+    <div *ngIf="!products.length">{{ "QuickView.Empty" | translate }}</div>
     <div>
       <div class="quickviewProduct" *ngFor="let product of products">
         <div>
-          <img src="{{ product.image }}">
+          <img src="{{ product.image }}" />
         </div>
         <div>
-          <div>{{ 'QuickView.Name' | translate:product }}</div>
-          <div>{{ 'QuickView.Color' | translate:product }}</div>
-          <div>{{ 'QuickView.Price' | translate:product }} {{ 'Currency' | translate }}</div>
-          <div>{{ 'QuickView.Quantity' | translate:product }}</div>
+          <div>{{ "QuickView.Name" | translate: product }}</div>
+          <div>{{ "QuickView.Color" | translate: product }}</div>
+          <div>
+            {{ "QuickView.Price" | translate: product }}
+            {{ "Currency" | translate }}
+          </div>
+          <div>{{ "QuickView.Quantity" | translate: product }}</div>
         </div>
-        <div class="closeIcon" (click)="basketService.removeProduct(product.name, product.size)"></div>
+        <div
+          class="closeIcon"
+          (click)="basketService.removeProduct(product.name, product.size)"
+        ></div>
       </div>
     </div>
   </div>

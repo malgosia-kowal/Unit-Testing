@@ -1,21 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Locale } from '../app.component';
+import { Injectable } from "@angular/core";
+import { Locale } from "../app.component";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CurrencyService {
   exchangeRate = {
-    [`${Locale.Pl}-${Locale.Gb}`]: 4.94,
-    [`${Locale.Gb}-${Locale.Pl}`]: 0.20,
+    [Locale.Gb]: { [Locale.Pl]: 4.94 }
   };
 
   convert(value: number, from: Locale, to: Locale): Promise<number> {
-    const rate = this.exchangeRate[`${from}-${to}`];
-    if (rate) {
-      value = Math.round(value / rate);
+    let result = value / 100;
+    try {
+      if (from !== to) {
+        result = result * this.exchangeRate[from][to];
+      }
+    } catch (err) {
+      result = result * (1 / this.exchangeRate[to][from]);
     }
-    return new Promise(resolve => setTimeout(() => resolve(value), 750));
+    return new Promise(resolve =>
+      setTimeout(() => resolve(Math.round(result * 100)), 750)
+    );
   }
 }
 
