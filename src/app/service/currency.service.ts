@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Locale } from "../app.component";
 
+// 3RD party service!
+
 @Injectable({
   providedIn: "root"
 })

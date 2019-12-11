@@ -3,17 +3,12 @@ import { BasketService } from './basket.service';
 import { createProduct } from '../factory/Product';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 //import { CurrencyService } from './currency.service';
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import {Locale} from '../app.component';
 import { EventEmitter } from '@angular/core';
+import currencyService from "./currency.service";
 
-
-// emitter
-
-// subscriber | listeners
-// .... ? pl => 
-
-// emit -> wsysylam cos! -> pl
+jest.mock('./currency.service');
 
 class Mock {
   private emitter: EventEmitter<LangChangeEvent>;
@@ -32,16 +27,21 @@ class Mock {
 
 }
 
-const mockTranslate = new Mock();
+class MockProductsService {
+  public convertProductsPrice = jest.fn();
+}
 
-const basket = new BasketService(mockTranslate as any);
+const mockTranslate = new Mock();
+const mockProductsService = new MockProductsService();
+
+const basket = new BasketService(mockTranslate as any, mockProductsService as any);
 
 describe('Basket', () =>  {
 
 
   beforeEach(() => {
     basket.clear();
-    
+   //  jest.resetAllMocks();
   });
 
   it('should check if basket is empty at the start', () => {
@@ -174,30 +174,39 @@ describe('Basket', () =>  {
     expect(basket.get().products.getValue().length).toEqual(0);
     expect(basket.get().total).toEqual(0);
   });
+
   it('can convert to different currency', async () => {
+    (currencyService.convert as jest.Mock)
+      .mockImplementation(() => new Promise((resolve, reject) => resolve(250)));
+
+    // (currencyService.convert as jest.Mock).mockImplementation(() => new Promise((resolve, reject) => reject('we had error')));
+
     const product = createProduct({price: 150});
     basket.addProduct(product);
     expect(basket.get().total).toEqual(150);
     
     // We want to change it to en
     mockTranslate.use(Locale.Gb);
+    await new Promise(resolve => setTimeout(() => resolve(), 10));
+    expect(basket.get().total).toEqual(250);
    
 
-    // Promise
-    // async / await !!!
+    // // Promise
+    // // async / await !!!
 
-    // delay here?
-    // 1s
-    // this is wrong
-    // Are we writing integration or unit test ??
-    console.log('1');
-    await new Promise(resolve => setTimeout(() => resolve(), 1000));
-    console.log('2');
+    // // delay here?
+    // // 1s
+    // // this is wrong
+    // // Are we writing integration or unit test ??
+    // console.log('1');
+    
+    // await new Promise(resolve => setTimeout(() => resolve(), 2100));
+    // console.log('2');
 
-    // 0.76s
-    // 0.75s
-    expect(basket.get().total).toEqual(30)
-    // we want to convert monie!
+    // // 0.76s
+    // // 0.75s
+    // expect(basket.get().total).toEqual(30)
+    // // we want to convert monie!
     
 
     //expect(get().products.getValue().length).toEqual(0);
@@ -221,6 +230,13 @@ describe('Basket', () =>  {
     await new Promise(resolve => setTimeout(() => resolve(), 1000));
 
     expect(basket.get().total).toEqual(100);
+  });
+
+  it('should convert products price on load',() => {
+    expect(mockProductsService.convertProductsPrice).toHaveBeenCalledWith(
+      mockTranslate,
+      new BehaviorSubject([]),
+    );
   });
   
 });

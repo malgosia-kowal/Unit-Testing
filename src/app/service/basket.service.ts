@@ -18,10 +18,10 @@ export class BasketService {
     private productsService: ProductService
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      console.log(event);
       const prevCurrency = getPreviousLang(this.translate, event.lang);
-      console.log(prevCurrency);
 
+      console.log(currencyService.convert);
+      // it will return some new amount?
       currencyService
         .convert(this.total, prevCurrency, event.lang as Locale)
         .then(amount => {
