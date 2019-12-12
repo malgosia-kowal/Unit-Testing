@@ -1,25 +1,29 @@
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
+import { BasketComponent } from "./basket.component";
+import { ButtonComponent } from "../button/button.component";
+import { BasketService } from "../service/basket.service";
+import { ToggleService, Toggable } from "../service/toggle.service";
+import { createProduct } from "../factory/Product";
+import { BehaviorSubject, of, Observable } from "rxjs";
 import {
-  async,
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { BasketComponent } from './basket.component';
-import { ButtonComponent } from '../button/button.component';
-import { BasketService } from '../service/basket.service';
-import { ToggleService, Toggable } from '../service/toggle.service';
-import { createProduct } from '../factory/Product';
-import { BehaviorSubject, of, Observable } from 'rxjs';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { Locale } from '../app.component';
+  TranslateModule,
+  TranslateLoader,
+  TranslateService
+} from "@ngx-translate/core";
+import { Locale } from "../app.component";
+import { MoneyPipe } from "../pipes/money";
+import currencyService from "../service/currency.service";
+
+jest.mock("../service/currency.service");
 
 class CustomLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
-    return of(require('../../assets/i18n/en.json'));
+    return of(require("../../assets/i18n/en.json"));
   }
 }
 
-describe('BasketComponent', () => {
+describe("BasketComponent", () => {
   let component: BasketComponent;
   let fixture: ComponentFixture<BasketComponent>;
   let toggleService: ToggleService;
@@ -28,13 +32,15 @@ describe('BasketComponent', () => {
 
   beforeEach(async(async () => {
     TestBed.configureTestingModule({
-      declarations: [BasketComponent, ButtonComponent],
-      imports: [TranslateModule.forRoot({
-        loader: { provide: TranslateLoader, useClass: CustomLoader }
-      })],
+      declarations: [BasketComponent, ButtonComponent, MoneyPipe],
+      imports: [
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader }
+        })
+      ],
       providers: [
         { provide: ToggleService, useClass: ToggleService },
-        { provide: BasketService, useClass: BasketService },
+        { provide: BasketService, useClass: BasketService }
       ]
     })
       .compileComponents()
@@ -49,17 +55,20 @@ describe('BasketComponent', () => {
 
         fixture.detectChanges();
       });
+    (currencyService.convert as jest.Mock).mockImplementation(
+      () => new Promise(resolve => resolve(0))
+    );
   }));
 
-  it('should exist', () => {
+  it("should exist", () => {
     expect(component).toBeDefined();
   });
 
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     expect(fixture).toMatchSnapshot();
   });
 
-  it('should render correctly with cat in the basket', () => {
+  it("should render correctly with cat in the basket", async () => {
     const product = createProduct({ price: 320 });
     component.basketService.addProduct(product);
 
@@ -68,35 +77,37 @@ describe('BasketComponent', () => {
     expect(fixture).toMatchSnapshot();
   });
 
-  it('should set the dependecies', () => {
+  it("should set the dependecies", () => {
     component.ngOnInit();
 
     expect(component.toggleService).toBe(toggleService);
     expect(component.basketService).toBe(basketService);
   });
 
-  it('can toggle quickview', async () => {
-    const toggleButton = fixture.debugElement.query(By.css('#quickViewButton'));
+  it("can toggle quickview", async () => {
+    const toggleButton = fixture.debugElement.query(By.css("#quickViewButton"));
 
-    toggleButton.triggerEventHandler('action', 'test');
+    toggleButton.triggerEventHandler("action", "test");
 
-    const visibleSubject = (toggleService.visible(Toggable.Quickview).source as BehaviorSubject<boolean>);
+    const visibleSubject = toggleService.visible(Toggable.Quickview)
+      .source as BehaviorSubject<boolean>;
 
     expect(visibleSubject.getValue()).toBeTruthy();
 
-    toggleButton.triggerEventHandler('action', 'test');
+    toggleButton.triggerEventHandler("action", "test");
     expect(visibleSubject.getValue()).toBeFalsy();
   });
 
-  it('can clean the basket', () => {
+  it("can clean the basket", () => {
     const product = createProduct();
     component.basketService.addProduct(product);
     fixture.detectChanges();
-    const cleanBasketButton = fixture.debugElement.query(By.css('#clearTheBasketButton'));
+    const cleanBasketButton = fixture.debugElement.query(
+      By.css("#clearTheBasketButton")
+    );
 
-    cleanBasketButton.triggerEventHandler('action', 'test');
+    cleanBasketButton.triggerEventHandler("action", "test");
 
     expect(component.basketService.products.getValue().length).toEqual(0);
   });
-
 });
