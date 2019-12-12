@@ -40,14 +40,16 @@ exports[`Products Component can render products 1`] = `
         <span
           class="productCardPropHeader"
         >
-          Price 
+          Price:  
         </span>
         <span
           class="productCardPropValue"
         >
-          8
+          0,08
         </span>
-         zl 
+        <span>
+          gbp
+        </span>
       </div>
       <hr />
       <div
@@ -56,7 +58,6 @@ exports[`Products Component can render products 1`] = `
         <app-button
           id="addToBasketButton-0"
           ng-reflect-text="Add to basket"
-          text="Add to basket"
         >
           <button>
              Add to basket
@@ -91,14 +92,16 @@ exports[`Products Component can render products 1`] = `
         <span
           class="productCardPropHeader"
         >
-          Price 
+          Price:  
         </span>
         <span
           class="productCardPropValue"
         >
-          4
+          0,04
         </span>
-         zl 
+        <span>
+          gbp
+        </span>
       </div>
       <hr />
       <div
@@ -107,7 +110,6 @@ exports[`Products Component can render products 1`] = `
         <app-button
           id="addToBasketButton-1"
           ng-reflect-text="Add to basket"
-          text="Add to basket"
         >
           <button>
              Add to basket
@@ -167,14 +169,16 @@ exports[`Products Component can select product 1`] = `
         <span
           class="productCardPropHeader"
         >
-          Price 
+          Price:  
         </span>
         <span
           class="productCardPropValue"
         >
-          4
+          0,04
         </span>
-         zl 
+        <span>
+          gbp
+        </span>
       </div>
       <hr />
       <div
@@ -183,7 +187,6 @@ exports[`Products Component can select product 1`] = `
         <app-button
           id="addToBasketButton-0"
           ng-reflect-text="Add to basket"
-          text="Add to basket"
         >
           <button>
              Add to basket
@@ -218,14 +221,16 @@ exports[`Products Component can select product 1`] = `
         <span
           class="productCardPropHeader"
         >
-          Price 
+          Price:  
         </span>
         <span
           class="productCardPropValue"
         >
-          9
+          0,09
         </span>
-         zl 
+        <span>
+          gbp
+        </span>
       </div>
       <hr />
       <div
@@ -234,7 +239,6 @@ exports[`Products Component can select product 1`] = `
         <app-button
           id="addToBasketButton-1"
           ng-reflect-text="Add to basket"
-          text="Add to basket"
         >
           <button>
              Add to basket

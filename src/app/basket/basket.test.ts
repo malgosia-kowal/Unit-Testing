@@ -5,7 +5,7 @@ import { ButtonComponent } from "../button/button.component";
 import { BasketService } from "../service/basket.service";
 import { ToggleService, Toggable } from "../service/toggle.service";
 import { createProduct } from "../factory/Product";
-import { BehaviorSubject, of, Observable } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import {
   TranslateModule,
   TranslateLoader,
@@ -14,14 +14,9 @@ import {
 import { Locale } from "../app.component";
 import { MoneyPipe } from "../pipes/money";
 import currencyService from "../service/currency.service";
+import { MockCustomLoader } from "../tests/mocks/translation";
 
 jest.mock("../service/currency.service");
-
-class CustomLoader implements TranslateLoader {
-  getTranslation(lang: string): Observable<any> {
-    return of(require("../../assets/i18n/en.json"));
-  }
-}
 
 describe("BasketComponent", () => {
   let component: BasketComponent;
@@ -35,7 +30,7 @@ describe("BasketComponent", () => {
       declarations: [BasketComponent, ButtonComponent, MoneyPipe],
       imports: [
         TranslateModule.forRoot({
-          loader: { provide: TranslateLoader, useClass: CustomLoader }
+          loader: { provide: TranslateLoader, useClass: MockCustomLoader }
         })
       ],
       providers: [
