@@ -12,22 +12,24 @@ describe('Quick View', () => {
 
     it('should check if product is visible in quickview', () => {
       clickById(Element.productOne);
+      clickById(Element.productTwo)
       toogleQuickView();
         
-      checkProductsVisible(Element.valueOne);
+      checkProductsVisible(Element.valueTwo);
     });
       
     it('should check if product can be removed from quickview', () => {
+      
       removeProductsFromQuickView();
             
-      checkProductsVisible(Element.valueZero);
-      checkBasketTotal(Element.contain, Element.valueZero);
-      checkBasketLength(Element.contain, Element.valueZero);
+      checkProductsVisible(1);
+      checkBasketTotal(Element.notContain, Element.valueZero);
+      checkBasketLength(Element.contain, 1);
       
       toogleQuickView();
     });
       
-    it('should check if the same products can be added to quickview', () => {
+   it('should check if the same products can be added to quickview', () => {
       clickById(Element.productOne);
       clickById(Element.productOne );
 
@@ -50,7 +52,7 @@ describe('Quick View', () => {
     it('should clean all products in the quick view', () => {
       clickById(Element.cleanButton)
         
-      checkProductsVisible(Element.valueZero);
+      checkProductsVisible(0);
     });
 
     it('should close quickView when user clicks outside of it', () => {

@@ -13,9 +13,11 @@ describe('productsPage', () => {
   
     it('should add product to the basket', () => {
       clickById(Element.productOne);
-
+      
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
+      
+      
     }); 
 
     it('should add the same products to the basket', () => {
@@ -30,15 +32,15 @@ describe('productsPage', () => {
       clickById(Element.productOne);
       clickById(Element.productTwo);
 
-      checkBasketTotal(Element.notContain, Element.valueZero);
+      checkBasketTotal(Element.notContain, 0);
       checkBasketLength(Element.contain, Element.valueTwo);
     }); 
 
     it('should clean the basket', () => {
       clickById(Element.cleanButton)
   
-      checkBasketTotal(Element.contain, Element.valueZero);
-      checkBasketLength(Element.contain, Element.valueZero);
+      checkBasketTotal(Element.contain, 0);
+      checkBasketLength(Element.contain, 0);
     });
   
     it('should open quickView', () => {
