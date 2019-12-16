@@ -1,4 +1,4 @@
-import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocaleToPl} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
@@ -17,9 +17,17 @@ describe('productsPage', () => {
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
       
-      
     }); 
 
+    it('should change locale', () => {
+      clickById(Element.productOne);
+      changeLocaleToPl();
+      
+      checkBasketTotal(Element.contain, "zl");
+
+      cy.get(".header").contains("Nielegalny sklep kotow (Meow)");
+    }); 
+    
     it('should add the same products to the basket', () => {
       clickById(Element.productOne);
       clickById(Element.productOne);

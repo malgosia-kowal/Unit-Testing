@@ -60,5 +60,6 @@ describe('Quick View', () => {
 
       quickViewIsNotVisible();  
     });
+    
 
 });

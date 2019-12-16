@@ -36,7 +36,7 @@
     "@angular/compiler-cli": "~8.2.9",
     "@angular/language-service": "~8.2.9",
     "@types/jest": "^24.0.18",
-    "@types/node": "~8.9.4",
+    "@types/node": "^8.10.59",
     "codelyzer": "^5.0.0",
     "cypress": "^3.4.1",
     "jest": "^24.9.0",
