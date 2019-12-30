@@ -41,7 +41,6 @@ describe('Basket', () =>  {
 
   beforeEach(() => {
     basket.clear();
-   //  jest.resetAllMocks();
   });
 
   it('should check if basket is empty at the start', () => {
@@ -179,7 +178,7 @@ describe('Basket', () =>  {
     (currencyService.convert as jest.Mock)
       .mockImplementation(() => new Promise((resolve, reject) => resolve(250)));
 
-    // (currencyService.convert as jest.Mock).mockImplementation(() => new Promise((resolve, reject) => reject('we had error')));
+    //(currencyService.convert as jest.Mock).mockImplementation(() => new Promise((resolve, reject) => reject('we had error')));
 
     const product = createProduct({price: 150});
     basket.addProduct(product);
@@ -189,47 +188,6 @@ describe('Basket', () =>  {
     mockTranslate.use(Locale.Gb);
     await new Promise(resolve => setTimeout(() => resolve(), 10));
     expect(basket.get().total).toEqual(250);
-   
-
-    // // Promise
-    // // async / await !!!
-
-    // // delay here?
-    // // 1s
-    // // this is wrong
-    // // Are we writing integration or unit test ??
-    // console.log('1');
-    
-    // await new Promise(resolve => setTimeout(() => resolve(), 2100));
-    // console.log('2');
-
-    // // 0.76s
-    // // 0.75s
-    // expect(basket.get().total).toEqual(30)
-    // // we want to convert monie!
-    
-
-    //expect(get().products.getValue().length).toEqual(0);
-    //expect(basket.get().total).toEqual(0);
-  });
-
-  it('should convert price of the product from GB to PL', async() => {
- 
-    mockTranslate.getDefaultLang = jest.fn(() => Locale.Gb)
-    await new Promise(resolve => setTimeout(() => resolve(), 1000));
-
-    const product = createProduct({price: 100});
-    basket.addProduct(product);
-
-    mockTranslate.use(Locale.Pl);
-    await new Promise(resolve => setTimeout(() => resolve(), 1000));
-
-    expect(basket.get().total).toEqual(494);
-    
-    mockTranslate.use(Locale.Gb)
-    await new Promise(resolve => setTimeout(() => resolve(), 1000));
-
-    expect(basket.get().total).toEqual(100);
   });
 
   it('should convert products price on load',() => {

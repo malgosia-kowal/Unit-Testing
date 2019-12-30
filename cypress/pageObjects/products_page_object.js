@@ -27,12 +27,17 @@ const checkBasketLength = (contain, value) => {
 }
 const changeLocaleToPl = () => {
     cy.get(".flagsContainer")
-    .get(".flag-icon-pl").click()
+    .get(".flag-icon-pl").click();
+}
+const changeLocaleToGB = () => {
+  cy.get(".flagsContainer")
+  .get(".flag-icon-gb").click();
 }
 
 
 module.exports = {clickById, visitPage,
                   checkComponents, checkBasketTotal,
-                  checkBasketLength,changeLocaleToPl
+                  checkBasketLength,changeLocaleToPl,
+                  changeLocaleToGB
                  };
 

@@ -2,7 +2,9 @@
 
 exports[`App Component should take a snapchot 1`] = `
 <app-root
+  locale={[Function Object]}
   title={[Function String]}
+  translate={[Function TranslateService]}
 >
   <div
     class="header"
@@ -10,6 +12,16 @@ exports[`App Component should take a snapchot 1`] = `
     <h1>
        Underground Cat Store (Meow) 
     </h1>
+    <div
+      class="flagsContainer"
+    >
+      <span
+        class="flag-icon flag-icon-pl"
+      />
+      <span
+        class="flag-icon flag-icon-gb"
+      />
+    </div>
   </div><div
     class="container"
   >
@@ -50,14 +62,16 @@ exports[`App Component should take a snapchot 1`] = `
             <span
               class="productCardPropHeader"
             >
-              Price 
+              Price:  
             </span>
             <span
               class="productCardPropValue"
             >
-              123
+              1,00
             </span>
-             zl 
+            <span>
+              gbp
+            </span>
           </div>
           <hr />
           <div
@@ -66,7 +80,6 @@ exports[`App Component should take a snapchot 1`] = `
             <app-button
               id="addToBasketButton-0"
               ng-reflect-text="Add to basket"
-              text="Add to basket"
             >
               <button>
                  Add to basket
@@ -101,14 +114,16 @@ exports[`App Component should take a snapchot 1`] = `
             <span
               class="productCardPropHeader"
             >
-              Price 
+              Price:  
             </span>
             <span
               class="productCardPropValue"
             >
-              123
+              1,23
             </span>
-             zl 
+            <span>
+              gbp
+            </span>
           </div>
           <hr />
           <div
@@ -117,7 +132,6 @@ exports[`App Component should take a snapchot 1`] = `
             <app-button
               id="addToBasketButton-1"
               ng-reflect-text="Add to basket"
-              text="Add to basket"
             >
               <button>
                  Add to basket
@@ -152,14 +166,16 @@ exports[`App Component should take a snapchot 1`] = `
             <span
               class="productCardPropHeader"
             >
-              Price 
+              Price:  
             </span>
             <span
               class="productCardPropValue"
             >
-              123
+              1,23
             </span>
-             zl 
+            <span>
+              gbp
+            </span>
           </div>
           <hr />
           <div
@@ -168,7 +184,6 @@ exports[`App Component should take a snapchot 1`] = `
             <app-button
               id="addToBasketButton-2"
               ng-reflect-text="Add to basket"
-              text="Add to basket"
             >
               <button>
                  Add to basket
@@ -203,14 +218,16 @@ exports[`App Component should take a snapchot 1`] = `
             <span
               class="productCardPropHeader"
             >
-              Price 
+              Price:  
             </span>
             <span
               class="productCardPropValue"
             >
-              123
+              1,23
             </span>
-             zl 
+            <span>
+              gbp
+            </span>
           </div>
           <hr />
           <div
@@ -219,7 +236,6 @@ exports[`App Component should take a snapchot 1`] = `
             <app-button
               id="addToBasketButton-3"
               ng-reflect-text="Add to basket"
-              text="Add to basket"
             >
               <button>
                  Add to basket
@@ -243,15 +259,19 @@ exports[`App Component should take a snapchot 1`] = `
           <div>
             <span
               id="basketTotal"
+              ng-reflect-translate="Basket.Total"
+              ng-reflect-translate-params="[object Object]"
             >
-               Total: 0 zl
+              Total: 0,00 gbp
             </span>
           </div>
           <div>
             <span
               id="basketLength"
+              ng-reflect-translate="Basket.Items"
+              ng-reflect-translate-params="[object Object]"
             >
-               Cats: 0
+              Cats: 0
             </span>
           </div>
         </div>
@@ -261,7 +281,6 @@ exports[`App Component should take a snapchot 1`] = `
           <app-button
             id="clearTheBasketButton"
             ng-reflect-text="Clean"
-            text="Clean"
           >
             <button>
                Clean
@@ -271,7 +290,6 @@ exports[`App Component should take a snapchot 1`] = `
           <app-button
             id="quickViewButton"
             ng-reflect-text="Quick view"
-            text="Quick view"
           >
             <button>
                Quick view

@@ -9,16 +9,33 @@
   import { createProduct } from '../factory/Product';
   import {QuickviewComponent} from './quickview.component';
   import { BehaviorSubject } from 'rxjs';
+  import { MockCustomLoader } from "../tests/mocks/translation";
+  import { MoneyPipe } from "../pipes/money";
+  import {
+    TranslateModule,
+    TranslateLoader,
+    TranslateService
+  } from "@ngx-translate/core";
+  import { Locale } from "../app.component";
+  import currencyService from "../service/currency.service";
+
+  jest.mock("../service/currency.service");
   
   describe('Quickview component', () => {
     let quickviewComponent: QuickviewComponent;
     let fixture: ComponentFixture<QuickviewComponent>;
     let toggleService: ToggleService;
     let basketService: BasketService;
+    let translate: TranslateService;
     
     beforeEach(async(async () => {
       TestBed.configureTestingModule({
-        declarations: [QuickviewComponent],
+        declarations: [QuickviewComponent, MoneyPipe],
+        imports: [
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: MockCustomLoader }
+          })
+        ],
         providers: [
           { provide: ToggleService, useClass: ToggleService },
           { provide: BasketService, useClass: BasketService }
@@ -31,9 +48,15 @@
 
           toggleService = TestBed.get(ToggleService);
           basketService = TestBed.get(BasketService);
+          translate = TestBed.get(TranslateService);
+          translate.use(Locale.Gb);
+
 
           fixture.detectChanges();
         });
+        (currencyService.convert as jest.Mock).mockImplementation(
+          () => new Promise(resolve => resolve(0))
+        );
     }));
     it('should exist', () => {
       expect(quickviewComponent).toBeDefined();
@@ -74,7 +97,7 @@
     });
   
     it('should remove product from quickView', () => {
-      const product = createProduct();
+      const product = createProduct({ price: 300 });
       basketService.addProduct(product);
       
       quickviewComponent.toggleService.toggle(Toggable.Quickview);

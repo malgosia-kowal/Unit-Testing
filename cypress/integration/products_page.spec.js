@@ -1,4 +1,4 @@
-import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocaleToPl} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocaleToPl, changeLocaleToGB} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
@@ -16,18 +16,22 @@ describe('productsPage', () => {
       
       checkBasketTotal(Element.notContain, Element.valueZero);
       checkBasketLength(Element.contain, Element.valueOne);
-      
     }); 
 
     it('should change locale', () => {
-      clickById(Element.productOne);
       changeLocaleToPl();
       
       checkBasketTotal(Element.contain, "zl");
 
       cy.get(".header").contains("Nielegalny sklep kotow (Meow)");
     }); 
-    
+
+    it('should convert price correctly when one product in the basket', () => {
+      changeLocaleToGB();
+
+      cy.get("#basketTotal").should("contain", "0,20");
+    });
+
     it('should add the same products to the basket', () => {
       clickById(Element.productOne);
       clickById(Element.productOne);
@@ -40,16 +44,39 @@ describe('productsPage', () => {
       clickById(Element.productOne);
       clickById(Element.productTwo);
 
-      checkBasketTotal(Element.notContain, 0);
-      checkBasketLength(Element.contain, Element.valueTwo);
-    }); 
+      checkBasketTotal(Element.notContain, "0,00");
+      checkBasketLength(Element.contain, "2");
+    });
 
     it('should clean the basket', () => {
-      clickById(Element.cleanButton)
+      clickById(Element.cleanButton);
   
       checkBasketTotal(Element.contain, 0);
       checkBasketLength(Element.contain, 0);
     });
+
+    it('should convert price correctly when more products in the basket', () => {
+      changeLocaleToPl();
+      cy.wait(700);
+
+      clickById(Element.productOne);
+      clickById(Element.productTwo);
+
+      checkBasketLength(Element.contain, "2");
+      checkBasketTotal(Element.contain, "2,23");
+
+      changeLocaleToGB();
+      cy.wait(700);
+
+      checkBasketTotal(Element.contain, "0,45");
+
+      changeLocaleToPl();
+      cy.wait(700);
+
+      checkBasketTotal(Element.contain, "2,23");
+      
+      clickById(Element.cleanButton);
+    });  
   
     it('should open quickView', () => {
       toogleQuickView();
@@ -62,5 +89,4 @@ describe('productsPage', () => {
   
       quickViewIsNotVisible();
     }); 
-
 });
