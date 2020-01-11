@@ -122,7 +122,7 @@ describe("Products Component", () => {
     expect(basketService.get().products.getValue().length).toEqual(1);
   });
 
-  it("can select product", () => {
+it("can select product", () => {
     const product1 = createProduct({
       name: "test2",
       size: "8",

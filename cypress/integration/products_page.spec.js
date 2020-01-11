@@ -1,4 +1,4 @@
-import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocaleToPl, changeLocaleToGB} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocale} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
@@ -19,7 +19,7 @@ describe('productsPage', () => {
     }); 
 
     it('should change locale', () => {
-      changeLocaleToPl();
+      changeLocale("pl");
       
       checkBasketTotal(Element.contain, "zl");
 
@@ -27,9 +27,9 @@ describe('productsPage', () => {
     }); 
 
     it('should convert price correctly when one product in the basket', () => {
-      changeLocaleToGB();
+      changeLocale("gb");
 
-      cy.get("#basketTotal").should("contain", "0,20");
+      cy.get("#basketTotal").should("contain", "1,00");
     });
 
     it('should add the same products to the basket', () => {
@@ -56,24 +56,21 @@ describe('productsPage', () => {
     });
 
     it('should convert price correctly when more products in the basket', () => {
-      changeLocaleToPl();
-      cy.wait(700);
-
+      changeLocale("pl")
+      
       clickById(Element.productOne);
       clickById(Element.productTwo);
 
       checkBasketLength(Element.contain, "2");
+      checkBasketTotal(Element.contain, "11,02");
+
+      changeLocale("gb")
+      
       checkBasketTotal(Element.contain, "2,23");
 
-      changeLocaleToGB();
-      cy.wait(700);
-
-      checkBasketTotal(Element.contain, "0,45");
-
-      changeLocaleToPl();
-      cy.wait(700);
-
-      checkBasketTotal(Element.contain, "2,23");
+      changeLocale("pl")
+    
+      checkBasketTotal(Element.contain, "11,02");
       
       clickById(Element.cleanButton);
     });  

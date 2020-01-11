@@ -1,7 +1,6 @@
-import {clickById, visitPage, checkComponents,checkBasketTotal, checkBasketLength, changeLocaleToPl, changeLocaleToGB} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents,checkBasketTotal, checkBasketLength, changeLocale} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, checkProductsVisible, removeProductsFromQuickView, checkSameProductsInQuickview, clickOnOverlay, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
-import { createYield } from 'typescript';
 
 describe('Quick View', () => {
 
@@ -51,16 +50,24 @@ describe('Quick View', () => {
     });
 
     it('should check if price was changed according to locale', () => {
-      changeLocaleToGB();
-      cy.wait(700);
+        changeLocale("gb");
+        toogleQuickView(); 
 
-      toogleQuickView(); 
-      
-      cy.get(".quickviewProduct").should(() =>{
+        cy.get(".quickviewContainer")
+          .get(".quickviewProduct").children().contains("gb");
+        cy.get(".quickviewContainer")
+          .get(".quickviewProduct").eq(0).children().contains("Price: 1,00 ");
 
-        expect(".quickviewProduct").to.have.length(17);
-        cypress.log(quickviewProduct);
-      })
+        toogleQuickView();  
+        
+        changeLocale("pl");
+
+        toogleQuickView();
+        
+        cy.get(".quickviewContainer")
+          .get(".quickviewProduct").children().contains("zl");
+        cy.get(".quickviewContainer")
+          .get(".quickviewProduct").eq(0).children().contains("Cena: 4,94");  
     });
     
     it('should clean all products in the quick view', () => {

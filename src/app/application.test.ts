@@ -17,7 +17,6 @@
   } from "@ngx-translate/core";
   import { MockCustomLoader } from "./tests/mocks/translation";
 
-
   describe('App Component', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;

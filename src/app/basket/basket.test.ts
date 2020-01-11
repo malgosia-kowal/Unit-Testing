@@ -11,11 +11,10 @@ import {
   TranslateLoader,
   TranslateService
 } from "@ngx-translate/core";
-import { Locale, AppComponent } from "../app.component";
+import { Locale } from "../app.component";
 import { MoneyPipe } from "../pipes/money";
 import currencyService from "../service/currency.service";
 import { MockCustomLoader } from "../tests/mocks/translation";
-
 
 jest.mock("../service/currency.service");
 
