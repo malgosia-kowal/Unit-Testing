@@ -10,7 +10,13 @@
   import { AppComponent } from './app.component';
   import { ProductDetailComponent } from './product-detail/product-detail.component';
   import { ButtonComponent } from './button/button.component';
-  
+  import { MoneyPipe } from "./pipes/money";
+  import {
+    TranslateModule,
+    TranslateLoader,
+  } from "@ngx-translate/core";
+  import { MockCustomLoader } from "./tests/mocks/translation";
+
   describe('App Component', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
@@ -18,7 +24,12 @@
     beforeEach(async(() => {
       jest.resetAllMocks();
       TestBed.configureTestingModule({
-        declarations: [AppComponent, ProductsComponent, QuickviewComponent, BasketComponent, ProductDetailComponent, ButtonComponent],
+        declarations: [AppComponent, ProductsComponent, QuickviewComponent, BasketComponent, ProductDetailComponent, ButtonComponent, MoneyPipe],
+        imports: [
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: MockCustomLoader }
+          })
+        ],
       })
         .compileComponents()
         .then(() => {

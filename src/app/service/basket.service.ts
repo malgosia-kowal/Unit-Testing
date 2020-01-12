@@ -1,26 +1,54 @@
-import { Injectable } from '@angular/core';
-import { Product } from '../products/product';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Product } from "../products/product";
+import { BehaviorSubject } from "rxjs";
+import currencyService from "./currency.service";
+import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
+import { Locale } from "../app.component";
+import { ProductService } from "./product.service";
+import { getPreviousLang } from "../utils/translation";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class BasketService {
   products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
-  total: number = 0;
-  constructor() { }
+  total = 0;
+  constructor(
+    private translate: TranslateService,
+    private productsService: ProductService
+  ) {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      const prevCurrency = getPreviousLang(this.translate, event.lang);
+
+      //console.log(currencyService.convert);
+      // it will return some new amount?
+      currencyService
+        .convert(this.total, prevCurrency, event.lang as Locale)
+        .then(amount => {
+          //console.log(amount);
+          this.total = amount;
+        });
+    });
+    this.productsService.convertProductsPrice(this.translate, this.products);
+  }
 
   get() {
     return this;
   }
 
-  isTheSameProduct(product: Product, otherProduct: Product | Partial<Product>): boolean {
-    return product.name === otherProduct.name && product.size === otherProduct.size;
+  isTheSameProduct(
+    product: Product,
+    otherProduct: Product | Partial<Product>
+  ): boolean {
+    return (
+      product.name === otherProduct.name && product.size === otherProduct.size
+    );
   }
 
   addProduct(product: Product): void {
-    const existingProductWithTheSameSize =
-      this.products.value.find(p => this.isTheSameProduct(p, product));
+    const existingProductWithTheSameSize = this.products.value.find(p =>
+      this.isTheSameProduct(p, product)
+    );
 
     if (existingProductWithTheSameSize) {
       this.products.next(
@@ -29,7 +57,8 @@ export class BasketService {
             return { ...p, quantity: p.quantity + 1 };
           }
           return p;
-        }));
+        })
+      );
     } else {
       this.products.next(this.products.value.concat(product));
     }
@@ -37,12 +66,14 @@ export class BasketService {
   }
 
   removeProduct(productName: string, productSize: string) {
-    const existingProductWithTheSameSize =
-      this.products.value.find(p =>
-        this.isTheSameProduct(p, { name: productName, size: productSize })
-      );
+    const existingProductWithTheSameSize = this.products.value.find(p =>
+      this.isTheSameProduct(p, { name: productName, size: productSize })
+    );
 
-    if (existingProductWithTheSameSize && existingProductWithTheSameSize.quantity > 1) {
+    if (
+      existingProductWithTheSameSize &&
+      existingProductWithTheSameSize.quantity > 1
+    ) {
       this.products.next(
         this.products.value.map(p => {
           if (this.isTheSameProduct(p, existingProductWithTheSameSize)) {
@@ -50,18 +81,21 @@ export class BasketService {
             return p;
           }
           return p;
-        }));
+        })
+      );
     } else {
       this.products.next(
-        this.products
-          .value
-          .filter(p => !this.isTheSameProduct(p, { name: productName, size: productSize }))
+        this.products.value.filter(
+          p =>
+            !this.isTheSameProduct(p, { name: productName, size: productSize })
+        )
       );
     }
 
-    this.total =
-      this.products.value.reduce((total, product) =>
-        total + (product.price * product.quantity), 0);
+    this.total = this.products.value.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
   }
 
   applyDiscount(discountAmount, percent = true) {

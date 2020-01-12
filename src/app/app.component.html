@@ -1,7 +1,11 @@
 <div class="header">
   <h1>
-    {{ title }}
+    {{ 'Title' | translate }}
   </h1>
+  <div class="flagsContainer">
+    <span (click)="selectLocale(locale.Pl)" class="flag-icon flag-icon-pl"></span>
+    <span (click)="selectLocale(locale.Gb)" class="flag-icon flag-icon-gb"></span>
+  </div>
 </div>
 <div class="container">
   <app-products></app-products>

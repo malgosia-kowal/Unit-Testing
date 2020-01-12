@@ -1,26 +1,34 @@
 <h2>Products</h2>
 <app-product-detail [product]="product"></app-product-detail>
 <div class="productsContainer">
-  <div class="productCard" *ngFor="let product of products; let i = index" (click)="onSelect(product)">
-    <img src="{{ product.image }}">
+  <div
+    class="productCard"
+    *ngFor="let product of products; let i = index"
+    (click)="onSelect(product)"
+  >
+    <img src="{{ product.image }}" />
     <h3>{{ product.name }}</h3>
-    <hr>
+    <hr />
     <div>
-      <span class="productCardPropHeader">Color: </span>
+      <span class="productCardPropHeader">{{
+        "ProductCard.Color" | translate
+      }}</span>
       <span class="productCardPropValue">{{ product.size }}</span>
     </div>
     <div>
-      <span class="productCardPropHeader">Price </span>
-      <span class="productCardPropValue">{{ product.price }}</span> zl
+      <span class="productCardPropHeader"
+        >{{ "ProductCard.Price" | translate }}
+      </span>
+      <span class="productCardPropValue">{{ product.price | money }}</span>
+      <span>{{ "Currency" | translate }}</span>
     </div>
-    <hr>
+    <hr />
     <div class="productCardFooter">
-      <app-button 
-
+      <app-button
         [id]="'addToBasketButton-' + i"
-        text="Add to basket" 
-        (action)="addProduct(product); $event.stopPropagation()">
-         
+        text="{{ 'ProductCard.Add' | translate }}"
+        (action)="addProduct(product); $event.stopPropagation()"
+      >
       </app-button>
     </div>
   </div>

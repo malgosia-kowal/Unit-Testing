@@ -1,11 +1,43 @@
 import 'jest';
 import { BasketService } from './basket.service';
 import { createProduct } from '../factory/Product';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+//import { CurrencyService } from './currency.service';
+import { of, BehaviorSubject } from 'rxjs';
+import {Locale} from '../app.component';
+import { EventEmitter } from '@angular/core';
+import currencyService from "./currency.service";
 
+jest.mock('./currency.service');
 
-const basket = new BasketService();
+class Mock {
+  private emitter: EventEmitter<LangChangeEvent>;
+  public onLangChange: EventEmitter<LangChangeEvent>;
+  constructor() {
+    this.emitter = new EventEmitter();
+    this.onLangChange = this.emitter;
+  }
 
-describe('Basket', () => {
+  use(lang: string): void {
+    this.emitter.emit({ lang, translations: null});
+  }
+  getDefaultLang = jest.fn(() => Locale.Pl)
+  getLangs = jest.fn(() => [Locale.Pl])
+  convert = jest.fn(() => [Locale.Gb])
+
+}
+
+class MockProductsService {
+  public convertProductsPrice = jest.fn();
+}
+
+const mockTranslate = new Mock();
+const mockProductsService = new MockProductsService();
+
+const basket = new BasketService(mockTranslate as any, mockProductsService as any);
+
+describe('Basket', () =>  {
+
 
   beforeEach(() => {
     basket.clear();
@@ -142,4 +174,27 @@ describe('Basket', () => {
     expect(basket.get().total).toEqual(0);
   });
 
+  it('can convert to different currency', async () => {
+    (currencyService.convert as jest.Mock)
+      .mockImplementation(() => new Promise((resolve, reject) => resolve(250)));
+
+    //(currencyService.convert as jest.Mock).mockImplementation(() => new Promise((resolve, reject) => reject('we had error')));
+
+    const product = createProduct({price: 150});
+    basket.addProduct(product);
+    expect(basket.get().total).toEqual(150);
+    
+    // We want to change it to en
+    mockTranslate.use(Locale.Gb);
+    await new Promise(resolve => setTimeout(() => resolve(), 10));
+    expect(basket.get().total).toEqual(250);
+  });
+
+  it('should convert products price on load',() => {
+    expect(mockProductsService.convertProductsPrice).toHaveBeenCalledWith(
+      mockTranslate,
+      new BehaviorSubject([]),
+    );
+  });
+  
 });

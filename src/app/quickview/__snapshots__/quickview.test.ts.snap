@@ -87,7 +87,13 @@ exports[`Quickview component should render products when is visible 1`] = `
               Color: green
             </div>
             <div>
-              Price: 300 zl
+              <span
+                ng-reflect-translate="QuickView.Price"
+                ng-reflect-translate-params="[object Object]"
+              >
+                Price: 3,00
+              </span>
+               gbp 
             </div>
             <div>
               Quantity: 1

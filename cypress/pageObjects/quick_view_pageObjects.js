@@ -19,7 +19,7 @@ const checkProductsVisible = (value) => {
 }
 
 const removeProductsFromQuickView = () => {
-    cy.get('.quickviewProduct')
+    cy.get('.quickviewProduct').next()
       .find('.closeIcon')
       .click();
 }

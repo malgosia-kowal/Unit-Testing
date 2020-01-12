@@ -1,0 +1,24 @@
+{
+  "Title": "Underground Cat Store (Meow)",
+  "Currency": "gbp",
+  "Basket": {
+    "Price": "Price: ",
+    "Total": "Total: {{ total }} gbp",
+    "Items": "Cats: {{ amount }}",
+    "Clean": "Clean",
+    "QuickView": "Quick view"
+  },
+  "QuickView": {
+    "Header": "Your basket",
+    "Empty": "No Cats in the Basket",
+    "Name": "Name: {{ name }}",
+    "Quantity": "Quantity: {{ quantity }}",
+    "Price": "Price: {{ price }}",
+    "Color": "Color: {{ size }}"
+  },
+  "ProductCard": {
+    "Color": "Color: ",
+    "Price": "Price: ",
+    "Add": "Add to basket"
+  }
+}
