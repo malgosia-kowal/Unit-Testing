@@ -31,6 +31,12 @@ const changeLocale = (locale) => {
   cy.get(`.flag-icon-${locale}`).click();
   cy.wait(700);
 }
+const changeLocaleIsCorrect= (locale) => {
+  cy.get(".flagsContainer")
+  cy.get(`.flag-icon`).contain("pl");
+  cy.wait(700);
+}
+
 
 module.exports = {clickById, visitPage,
                   checkComponents, checkBasketTotal,

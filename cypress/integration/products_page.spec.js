@@ -1,4 +1,4 @@
-import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocale} from '../pageObjects/products_page_object';
+import {clickById, visitPage, checkComponents, checkBasketTotal, checkBasketLength, changeLocale, changeLocaleIsCorrect} from '../pageObjects/products_page_object';
 import * as Element from '../pageObjects/constElements';
 import {toogleQuickView, quickViewIsVisible, quickViewIsNotVisible} from '../pageObjects/quick_view_pageObjects';
 
@@ -86,4 +86,7 @@ describe('productsPage', () => {
   
       quickViewIsNotVisible();
     }); 
+    it('should check if locale was changed'), ()=>{
+      changeLocaleIsCorrect();
+    }
 });
